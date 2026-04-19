@@ -4,7 +4,7 @@ import { listAds } from "@/lib/ads";
 import { AdminPanel } from "./AdminPanel";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Admin — AffiliateFinder", robots: { index: false, follow: false } };
+export const metadata = { title: "Admin — AffiliateDeals", robots: { index: false, follow: false } };
 
 export default async function AdminPage({ searchParams }: { searchParams: { error?: string } }) {
   if (!isAdminAuthed()) {

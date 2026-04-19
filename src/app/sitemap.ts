@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { STATIC_PROGRAMS, CATEGORIES } from "@/lib/programs";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = process.env.NEXT_PUBLIC_SITE_URL ?? "https://affiliatefinder.co";
+  const base = process.env.NEXT_PUBLIC_SITE_URL ?? "https://affiliatedeals.co";
   const now = new Date();
   const staticPages: MetadataRoute.Sitemap = [
     { url: `${base}/`, lastModified: now, changeFrequency: "daily", priority: 1 },

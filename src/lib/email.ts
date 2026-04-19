@@ -5,7 +5,7 @@ export const resend = key ? new Resend(key) : null;
 
 export async function notifyAdmin(subject: string, html: string) {
   const to = process.env.ADMIN_NOTIFY_EMAIL;
-  const from = process.env.EMAIL_FROM ?? "AffiliateFinder <noreply@affiliatefinder.co>";
+  const from = process.env.EMAIL_FROM ?? "AffiliateDeals <noreply@affiliatedeals.co>";
   if (!resend || !to) {
     console.warn("[email] skipped — missing RESEND_API_KEY or ADMIN_NOTIFY_EMAIL");
     return;

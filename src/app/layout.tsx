@@ -3,10 +3,10 @@ import "./globals.css";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "AffiliateFinder — Find affiliate programs fast",
+  title: "AffiliateDeals — Find affiliate programs fast",
   description:
     "Browse a curated directory of affiliate programs. List yours for free. Pay to get featured.",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://affiliatefinder.co"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://affiliatedeals.co"),
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -32,7 +32,7 @@ function Header() {
               <path d="M16 16 L21 21" />
             </svg>
           </span>
-          <span>AffiliateFinder<span className="text-accent">.co</span></span>
+          <span>AffiliateDeals<span className="text-accent">.co</span></span>
         </Link>
         <nav className="flex items-center gap-1 text-sm">
           <Link href="/browse" className="btn-ghost">Browse</Link>
@@ -50,7 +50,7 @@ function Footer() {
   return (
     <footer className="mt-16 border-t border-ink-200 bg-white">
       <div className="container-page flex flex-col items-start justify-between gap-2 py-6 text-xs text-ink-500 sm:flex-row sm:items-center">
-        <div>© {new Date().getFullYear()} AffiliateFinder.co</div>
+        <div>© {new Date().getFullYear()} AffiliateDeals.co</div>
         <div className="flex flex-wrap gap-4">
           <Link href="/browse" className="hover:text-ink-800">Browse</Link>
           <Link href="/categories" className="hover:text-ink-800">Categories</Link>

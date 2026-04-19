@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export const metadata = { title: "Pricing — AffiliateFinder" };
+export const metadata = { title: "Pricing — AffiliateDeals" };
 
 export default function PricingPage({ searchParams }: { searchParams: { slug?: string } }) {
   const slug = searchParams.slug;

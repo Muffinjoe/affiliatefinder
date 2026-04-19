@@ -1,4 +1,4 @@
-# AffiliateFinder.co
+# AffiliateDeals.co
 
 A clean directory of affiliate programs. Free listings, paid feature boosts.
 

@@ -5,7 +5,7 @@ import { DirectoryControls } from "@/components/DirectoryControls";
 import { ProgramRow } from "@/components/ProgramCard";
 import { AdRail } from "@/components/AdRail";
 
-export const metadata = { title: "Browse — AffiliateFinder" };
+export const metadata = { title: "Browse — AffiliateDeals" };
 export const revalidate = 60;
 
 type SP = { q?: string; category?: string; commission?: string; sort?: string };

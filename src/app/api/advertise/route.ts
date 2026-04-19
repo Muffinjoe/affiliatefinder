@@ -59,7 +59,7 @@ export async function POST(req: Request) {
             unit_amount: AD_PRICE_CENTS,
             product_data: {
               name: `Sidebar ad — ${d.headline}`,
-              description: "30-day sidebar placement on AffiliateFinder.co (homepage + browse).",
+              description: "30-day sidebar placement on AffiliateDeals.co (homepage + browse).",
             },
           },
         },
@@ -80,7 +80,7 @@ export async function POST(req: Request) {
   }
 
   await notifyAdmin(
-    `[AffiliateFinder] New ad submitted — ${d.headline}`,
+    `[AffiliateDeals] New ad submitted — ${d.headline}`,
     `<h2>Sidebar ad (awaiting payment)</h2>
      <ul>
        <li>Headline: ${escapeHtml(d.headline)}</li>

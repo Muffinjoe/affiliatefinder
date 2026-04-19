@@ -1,6 +1,6 @@
 import { AdvertiseForm } from "./AdvertiseForm";
 
-export const metadata = { title: "Advertise — AffiliateFinder" };
+export const metadata = { title: "Advertise — AffiliateDeals" };
 
 export default function AdvertisePage() {
   return (

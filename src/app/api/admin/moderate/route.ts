@@ -78,13 +78,13 @@ async function notifyApplicant(
   decision: "approved" | "rejected"
 ) {
   const key = process.env.RESEND_API_KEY;
-  const from = process.env.EMAIL_FROM ?? "AffiliateFinder <noreply@affiliatefinder.co>";
-  const site = process.env.NEXT_PUBLIC_SITE_URL ?? "https://affiliatefinder.co";
+  const from = process.env.EMAIL_FROM ?? "AffiliateDeals <noreply@affiliatedeals.co>";
+  const site = process.env.NEXT_PUBLIC_SITE_URL ?? "https://affiliatedeals.co";
   if (!key) return;
   const resend = new Resend(key);
   const subject =
     decision === "approved"
-      ? `Your ${name} listing is live on AffiliateFinder`
+      ? `Your ${name} listing is live on AffiliateDeals`
       : `Your ${name} listing wasn't approved`;
   const html =
     decision === "approved"

@@ -2,8 +2,8 @@ import Link from "next/link";
 import { CATEGORIES, CATEGORY_COUNTS } from "@/lib/programs";
 
 export const metadata = {
-  title: "All categories — AffiliateFinder",
-  description: "Browse affiliate programs by category on AffiliateFinder.co.",
+  title: "All categories — AffiliateDeals",
+  description: "Browse affiliate programs by category on AffiliateDeals.co.",
 };
 
 export default function CategoriesPage() {

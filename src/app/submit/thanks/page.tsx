@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export const metadata = { title: "Thanks — AffiliateFinder" };
+export const metadata = { title: "Thanks — AffiliateDeals" };
 
 export default function ThanksPage({ searchParams }: { searchParams: { status?: string } }) {
   const status = searchParams.status;

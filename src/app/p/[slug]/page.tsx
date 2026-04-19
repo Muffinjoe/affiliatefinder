@@ -15,9 +15,9 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Params }) {
   const { programs } = await getDirectory();
   const p = programs.find((x) => x.slug === params.slug);
-  if (!p) return { title: "Not found — AffiliateFinder" };
+  if (!p) return { title: "Not found — AffiliateDeals" };
   return {
-    title: `${p.name} affiliate program — AffiliateFinder`,
+    title: `${p.name} affiliate program — AffiliateDeals`,
     description: p.short_description || p.description.slice(0, 160),
   };
 }

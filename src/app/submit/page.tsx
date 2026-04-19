@@ -1,6 +1,6 @@
 import { SubmitForm } from "./SubmitForm";
 
-export const metadata = { title: "Add a program — AffiliateFinder" };
+export const metadata = { title: "Add a program — AffiliateDeals" };
 
 export default function SubmitPage() {
   return (

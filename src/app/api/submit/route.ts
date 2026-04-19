@@ -77,7 +77,7 @@ export async function POST(req: Request) {
         unit_amount: LISTING_PRICE_CENTS,
         product_data: {
           name: `Listing — ${d.name}`,
-          description: "AffiliateFinder.co directory listing.",
+          description: "AffiliateDeals.co directory listing.",
         },
       },
     },
@@ -91,7 +91,7 @@ export async function POST(req: Request) {
         unit_amount: tier.cents,
         product_data: {
           name: `Featured boost (${months} month${months > 1 ? "s" : ""}) — ${d.name}`,
-          description: `${months}-month featured placement on AffiliateFinder.co.`,
+          description: `${months}-month featured placement on AffiliateDeals.co.`,
         },
       },
     });
@@ -123,7 +123,7 @@ export async function POST(req: Request) {
 
   const adminUrl = `${siteUrl}/admin`;
   await notifyAdmin(
-    `[AffiliateFinder] ${d.name} submitted${months > 0 ? ` (+${months}mo Featured)` : ""}`,
+    `[AffiliateDeals] ${d.name} submitted${months > 0 ? ` (+${months}mo Featured)` : ""}`,
     `
       <h2>New submission (awaiting payment)</h2>
       <p><strong>${escapeHtml(d.name)}</strong> — ${escapeHtml(d.category)} · ${escapeHtml(d.commission_type ?? "—")}</p>
