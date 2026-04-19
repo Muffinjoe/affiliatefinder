@@ -30,10 +30,10 @@ export default async function BrowsePage({ searchParams }: { searchParams: SP })
     .join(" · ");
 
   return (
-    <div className="container-page py-8">
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[180px_1fr_180px]">
+    <div className="mx-auto max-w-screen-2xl px-4 py-8 sm:px-6">
+      <div className="grid grid-cols-1 gap-6 xl:grid-cols-[200px_minmax(0,1fr)_200px] xl:gap-8">
         <AdRail side="left" />
-        <div>
+        <div className="mx-auto w-full max-w-4xl">
           <div className="mb-5 flex items-start justify-between gap-4">
             <div>
               <h1 className="text-2xl font-bold tracking-tight text-ink-900">Browse programs</h1>

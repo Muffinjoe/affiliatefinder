@@ -13,7 +13,7 @@ export async function AdRail({ side }: { side: "left" | "right" }) {
   const showCTA = side === "right";
 
   return (
-    <aside className="hidden lg:block">
+    <aside className="hidden xl:block">
       <div className="sticky top-20 flex flex-col gap-3">
         <div className="text-[10px] font-semibold uppercase tracking-wider text-ink-400">
           Sponsored

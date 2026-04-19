@@ -15,10 +15,10 @@ export default async function HomePage() {
     .slice(0, 10);
 
   return (
-    <div className="container-page py-10">
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[180px_1fr_180px]">
+    <div className="mx-auto max-w-screen-2xl px-4 py-10 sm:px-6">
+      <div className="grid grid-cols-1 gap-6 xl:grid-cols-[200px_minmax(0,1fr)_200px] xl:gap-8">
         <AdRail side="left" />
-        <div>
+        <div className="mx-auto w-full max-w-4xl">
           <section className="mx-auto max-w-3xl text-center">
             <span className="pill-accent">The directory for affiliate programs</span>
             <h1 className="mt-3 text-3xl font-bold tracking-tight text-ink-900 sm:text-4xl">
