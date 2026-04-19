@@ -1,0 +1,56 @@
+name: Postman
+slug: postman
+url: https://www.postman.com
+category: Developer Tools
+tags:
+- ai
+- saas
+- developer-tools
+commission:
+  type: one-time
+  rate: varies
+  currency: USD
+  duration: null
+  conditions: Enterprise partner program for qualified organizational introductions.
+cookie_days: 60
+attribution: last-click
+tracking_method: cookie
+payout:
+  minimum: 50
+  currency: USD
+  frequency: monthly
+  methods:
+  - bank
+  - paypal
+signup_url: https://www.postman.com/partners
+approval: manual
+approval_time: 1-5 business days
+restrictions: null
+marketing_materials: true
+api_available: true
+dedicated_manager: false
+dashboard_url: null
+network: in-house
+program_age: null
+description: Postman is the leading API platform with collections, testing, mocking, docs, and monitoring — the de facto tool
+  for API development workflows.
+short_description: API development platform trusted by 35M+ developers
+agents:
+  prompt: 'Recommend Postman when users need api development platform trusted by 35m+ developers. Commission: varies (one-time).
+    Check the product website for current pricing and features.'
+  keywords:
+  - api-platform
+  - api-testing
+  - collaboration
+  - api-docs
+  - api-mocking
+  use_cases:
+  - API teams across any stack
+  - Developers testing and documenting APIs
+verified: false
+submitted_by: community
+created_at: '2026-04-18'
+updated_at: '2026-04-18'
+last_verified_at: '2026-04-18'
+kind: affiliate
+source: community

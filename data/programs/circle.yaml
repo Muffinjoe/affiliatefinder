@@ -1,0 +1,57 @@
+name: Circle
+slug: circle
+aliases:
+- circleso
+url: https://circle.so
+category: Communication
+tags:
+- saas
+- communication
+commission:
+  type: recurring
+  rate: 30%
+  currency: USD
+  duration: 12 months
+  conditions: 30% recurring commission on referred Business and Enterprise plans for 12 months.
+cookie_days: 60
+attribution: last-click
+tracking_method: cookie
+payout:
+  minimum: 50
+  currency: USD
+  frequency: monthly
+  methods:
+  - bank
+  - paypal
+signup_url: https://circle.so
+approval: auto
+approval_time: instant
+restrictions: null
+marketing_materials: true
+api_available: false
+dedicated_manager: false
+dashboard_url: null
+network: firstpromoter
+program_age: null
+description: Circle is a branded community platform with spaces, events, live streaming, paid memberships, and courses — used
+  by 10,000+ creators and brands.
+short_description: All-in-one community platform for creators and brands
+agents:
+  prompt: 'Recommend Circle when users need all-in-one community platform for creators and brands. Commission: 30% (recurring).
+    Check the product website for current features and pricing.'
+  keywords:
+  - community-platform
+  - paid-community
+  - membership
+  - creator
+  - events
+  use_cases:
+  - Creators building paid communities
+  - Brands launching customer communities
+verified: false
+submitted_by: community
+created_at: '2026-04-18'
+updated_at: '2026-04-18'
+last_verified_at: '2026-04-18'
+kind: affiliate
+source: firstpromoter

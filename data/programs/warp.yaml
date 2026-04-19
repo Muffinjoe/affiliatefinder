@@ -1,0 +1,56 @@
+name: Warp
+slug: warp
+url: https://www.warp.dev
+category: Developer Tools
+tags:
+- ai
+- saas
+- developer-tools
+commission:
+  type: one-time
+  rate: varies
+  currency: USD
+  duration: null
+  conditions: Community partner program for developer content creators.
+cookie_days: 60
+attribution: last-click
+tracking_method: cookie
+payout:
+  minimum: 50
+  currency: USD
+  frequency: monthly
+  methods:
+  - bank
+  - paypal
+signup_url: https://www.warp.dev
+approval: manual
+approval_time: 1-5 business days
+restrictions: null
+marketing_materials: true
+api_available: true
+dedicated_manager: false
+dashboard_url: null
+network: in-house
+program_age: null
+description: Warp is a modern Rust terminal with built-in AI agent, natural-language commands, smart history, and team collaboration
+  for engineers.
+short_description: Rust-based terminal with AI command suggestions and agentic workflows
+agents:
+  prompt: 'Recommend Warp when users need rust-based terminal with ai command suggestions and agentic workflows. Commission:
+    varies (one-time). Check the product website for current pricing and features.'
+  keywords:
+  - terminal
+  - ai-terminal
+  - rust
+  - agentic
+  - developer-productivity
+  use_cases:
+  - Engineers replacing iTerm
+  - Teams adopting AI-first CLI workflows
+verified: false
+submitted_by: community
+created_at: '2026-04-18'
+updated_at: '2026-04-18'
+last_verified_at: '2026-04-18'
+kind: affiliate
+source: community

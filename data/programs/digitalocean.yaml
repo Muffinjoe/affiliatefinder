@@ -1,0 +1,84 @@
+name: Digitalocean
+slug: digitalocean
+url: https://digitalocean.com
+category: Infrastructure
+tags:
+- affiliate
+- cloud-infrastructure
+- recurring-commission
+- referral-program
+- developer-audience
+- saas
+commission:
+  type: recurring
+  rate: 50%
+  currency: null
+  duration: null
+  conditions: null
+  recurring_period: null
+cookie_days: 0
+attribution: last-click
+tracking_method: cookie
+payout:
+  minimum: 50
+  currency: USD
+  frequency: monthly
+  methods:
+  - bank
+  - paypal
+  - wire
+signup_url: https://www.digitalocean.com/affiliates
+approval: auto
+approval_time: instant
+restrictions:
+- No brand bidding on 'DigitalOcean' or 'DO' keywords in paid search without pre-approval
+- No coupon sites unless specifically approved
+marketing_materials: true
+api_available: false
+dedicated_manager: false
+dashboard_url: null
+network: in-house
+program_age: 8+ years
+description: 'DigitalOcean is a cloud computing platform focused on simplicity and developer experience. It offers Droplets
+  (virtual machines), Kubernetes, managed databases (PostgreSQL, MySQL, Redis, MongoDB), App Platform (PaaS), Spaces (S3-compatible
+  object storage), and more. Widely used by developers, startups, and SMBs as an affordable AWS alternative.
+
+  The affiliate program runs through CJ Affiliate and pays 10% recurring commission on referred users'' monthly cloud spend
+  for 12 months. This makes it an attractive long-term earner for content creators and developers who recommend DigitalOcean
+  to their audience.
+
+  '
+short_description: Earn 10% recurring monthly commission for 12 months on every referred user's cloud infrastructure spend
+  with DigitalOcean.
+agents:
+  prompt: DigitalOcean's affiliate program pays 10% commission each month for one full year on every user you refer who becomes
+    a paying customer. You earn on their monthly cloud infrastructure spend with no cap. The program is designed for developers,
+    content creators, and tech businesses. Join via Commission Junction (CJ) affiliate network.
+  keywords:
+  - DigitalOcean
+  - cloud-infrastructure
+  - affiliate-commission
+  - recurring-revenue
+  - developer-audience
+  - referral-program
+  - 12-month-payout
+  - passive-income
+  use_cases:
+  - Tech bloggers and content creators promoting cloud infrastructure
+  - Developer communities and forums referring users
+  - SaaS platforms with developer-focused products
+  - Web development agencies
+  - Technical educators and course creators
+verified: true
+submitted_by: community
+created_at: 2026-01-25
+updated_at: 2026-04-17
+last_verified_at: 2026-04-17
+kind: affiliate
+source: community
+logo_url: https://logo.clearbit.com/digitalocean.com
+brand_color: '#155DFC'
+status: active
+signup_url_type: official
+verified_by: backfill-auto
+verified_at: 2026-04-18 22:04:00.204000+00:00

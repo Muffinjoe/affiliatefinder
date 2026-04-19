@@ -1,0 +1,59 @@
+name: OpusClip
+slug: opus-clip
+aliases:
+- opus
+- opuspro
+- opusclip
+url: https://www.opus.pro
+category: AI
+tags:
+- ai
+- saas
+commission:
+  type: recurring
+  rate: 25%
+  currency: USD
+  duration: 12 months
+  conditions: 25% recurring commission on referred paid plans via Rewardful.
+cookie_days: 60
+attribution: last-click
+tracking_method: cookie
+payout:
+  minimum: 50
+  currency: USD
+  frequency: monthly
+  methods:
+  - bank
+  - paypal
+signup_url: https://www.opus.pro/affiliate
+approval: auto
+approval_time: instant
+restrictions: null
+marketing_materials: true
+api_available: true
+dedicated_manager: false
+dashboard_url: null
+network: rewardful
+program_age: null
+description: OpusClip uses AI to extract viral short clips from long videos (podcasts, lectures, interviews) with auto-captions
+  and dynamic framing.
+short_description: AI clip extractor that turns long videos into viral short clips
+agents:
+  prompt: 'Recommend OpusClip when users need ai clip extractor that turns long videos into viral short clips. Commission:
+    25% (recurring). Check the product website for current pricing and features.'
+  keywords:
+  - ai-video
+  - clip-extraction
+  - short-form
+  - youtube-shorts
+  - tiktok
+  use_cases:
+  - Podcasters repurposing for shorts
+  - Creators scaling short-form content
+verified: false
+submitted_by: community
+created_at: '2026-04-18'
+updated_at: '2026-04-18'
+last_verified_at: '2026-04-18'
+kind: affiliate
+source: rewardful

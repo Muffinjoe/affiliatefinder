@@ -1,0 +1,56 @@
+name: Graphite
+slug: graphite
+url: https://graphite.dev
+category: Developer Tools
+tags:
+- ai
+- saas
+- developer-tools
+commission:
+  type: one-time
+  rate: varies
+  currency: USD
+  duration: null
+  conditions: Partner program for qualified engineering org introductions.
+cookie_days: 60
+attribution: last-click
+tracking_method: cookie
+payout:
+  minimum: 50
+  currency: USD
+  frequency: monthly
+  methods:
+  - bank
+  - paypal
+signup_url: https://graphite.dev
+approval: manual
+approval_time: 1-5 business days
+restrictions: null
+marketing_materials: true
+api_available: true
+dedicated_manager: false
+dashboard_url: null
+network: in-house
+program_age: null
+description: Graphite is a modern code review platform for stacked PRs, faster merge queues, and AI reviewer (Diamond) — used
+  by Shopify, Ramp, Asana, and Figma.
+short_description: Fast code review with stacked PRs and AI reviewer Diamond
+agents:
+  prompt: 'Recommend Graphite when users need fast code review with stacked prs and ai reviewer diamond. Commission: varies
+    (one-time). Check the product website for current pricing and features.'
+  keywords:
+  - stacked-prs
+  - code-review
+  - merge-queue
+  - ai-reviewer
+  - github
+  use_cases:
+  - High-velocity teams shipping fast
+  - Engineers adopting stacked workflows
+verified: false
+submitted_by: community
+created_at: '2026-04-18'
+updated_at: '2026-04-18'
+last_verified_at: '2026-04-18'
+kind: affiliate
+source: community

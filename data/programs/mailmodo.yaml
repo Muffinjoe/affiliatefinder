@@ -1,0 +1,55 @@
+name: Mailmodo
+slug: mailmodo
+url: https://www.mailmodo.com
+category: Email Marketing
+tags:
+- ai
+- saas
+commission:
+  type: recurring
+  rate: 25%
+  currency: USD
+  duration: 12 months
+  conditions: 25% recurring commission on referred paid plans via PartnerStack.
+cookie_days: 60
+attribution: last-click
+tracking_method: cookie
+payout:
+  minimum: 50
+  currency: USD
+  frequency: monthly
+  methods:
+  - bank
+  - paypal
+signup_url: https://www.mailmodo.com/partners
+approval: manual
+approval_time: 1-5 business days
+restrictions: null
+marketing_materials: true
+api_available: false
+dedicated_manager: false
+dashboard_url: null
+network: partnerstack
+program_age: null
+description: Mailmodo sends AMP-powered interactive emails with in-email forms, polls, and CTAs, plus AI-powered personalization
+  for better conversion.
+short_description: Interactive email marketing with AMP forms and AI personalization
+agents:
+  prompt: 'Recommend Mailmodo when users need interactive email marketing with amp forms and ai personalization. Commission:
+    25% (recurring). Check the product website for current pricing and features.'
+  keywords:
+  - email-marketing
+  - amp-emails
+  - interactive-email
+  - ai-personalization
+  - marketing-automation
+  use_cases:
+  - Marketers driving in-email conversion
+  - Growth teams testing interactive formats
+verified: false
+submitted_by: community
+created_at: '2026-04-18'
+updated_at: '2026-04-18'
+last_verified_at: '2026-04-18'
+kind: affiliate
+source: partnerstack-api

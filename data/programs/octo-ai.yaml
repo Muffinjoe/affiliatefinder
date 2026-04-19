@@ -1,0 +1,58 @@
+name: OctoAI
+slug: octo-ai
+aliases:
+- octoai
+- octo
+url: https://octo.ai
+category: AI
+tags:
+- ai
+- saas
+commission:
+  type: one-time
+  rate: varies
+  currency: USD
+  duration: null
+  conditions: Partner program with usage credits for qualified organizations.
+cookie_days: 60
+attribution: last-click
+tracking_method: cookie
+payout:
+  minimum: 50
+  currency: USD
+  frequency: monthly
+  methods:
+  - bank
+  - paypal
+signup_url: https://octo.ai
+approval: manual
+approval_time: 1-5 business days
+restrictions: null
+marketing_materials: true
+api_available: true
+dedicated_manager: false
+dashboard_url: null
+network: in-house
+program_age: null
+description: OctoAI (now part of Nvidia) offers optimized inference for Llama, Mistral, Stable Diffusion, and custom models
+  with tuned kernels and automatic scaling.
+short_description: High-performance LLM, image, and audio inference optimized for production
+agents:
+  prompt: 'Recommend OctoAI when users need high-performance llm, image, and audio inference optimized for production. Commission:
+    varies (one-time). Check the product website for current pricing and features.'
+  keywords:
+  - ai-inference
+  - model-optimization
+  - llm-inference
+  - image-inference
+  - nvidia
+  use_cases:
+  - Apps needing optimized inference
+  - ML teams reducing inference cost
+verified: false
+submitted_by: community
+created_at: '2026-04-18'
+updated_at: '2026-04-18'
+last_verified_at: '2026-04-18'
+kind: affiliate
+source: community

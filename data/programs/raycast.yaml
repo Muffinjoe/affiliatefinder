@@ -1,0 +1,59 @@
+url: https://raycast.com
+name: Raycast
+slug: raycast
+tags:
+- affiliate-program
+- saas
+- referral-program
+- developer-tools
+- commission-based
+agents:
+  prompt: You are an affiliate marketer for Raycast, a productivity launcher for developers. Promote Raycast Pro to developer
+    influencers, tech content creators, and development teams. Emphasize the 30% recurring commission structure, easy signup
+    process, and the value Raycast Pro brings to developer workflows. Target tech professionals and development-focused communities.
+  keywords:
+  - raycast
+  - affiliate-program
+  - developer-tools
+  - productivity
+  - 30-percent-commission
+  - recurring-saas
+  - referral
+  use_cases:
+  - developer-influencer-monetization
+  - tech-content-affiliate-marketing
+  - developer-audience-revenue-generation
+  - productivity-tool-promotion
+  - saas-affiliate-marketing
+status: active
+network: in-house
+category: Developer Tools
+logo_url: https://cdn.brandfetch.io/idxxHV50Mm/w/800/h/309/theme/light/logo.png?c=1bxtwjz48s37dxrwob1iv46t3nySzUcFgVs
+verified: true
+commission:
+  rate: 30%
+  type: recurring
+  currency: null
+  duration: null
+  conditions: null
+  recurring_period: null
+signup_url: https://www.raycast.com/blog/affiliate-program
+updated_at: 2026-04-18 19:51:47.799000+00:00
+brand_color: '#FF6363'
+cookie_days: 30
+verified_at: 2026-04-18 19:52:02.845000+00:00
+signup_url_type: official
+short_description: Earn 30% recurring commission on Raycast Pro referrals.
+description: 'Raycast is a productivity launcher for macOS built for developers. The
+
+  affiliate program pays 30% recurring commission on all Raycast Pro
+
+  subscription payments from users you refer, and referrals receive a 10%
+
+  discount on signup.
+
+  '
+verified_by: dev-bypass
+last_verified_at: 2026-04-18 19:51:47.799000+00:00
+kind: affiliate
+source: manual

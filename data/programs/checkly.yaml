@@ -1,0 +1,56 @@
+name: Checkly
+slug: checkly
+url: https://www.checklyhq.com
+category: Developer Tools
+tags:
+- ai
+- saas
+- developer-tools
+commission:
+  type: recurring
+  rate: 20%
+  currency: USD
+  duration: 12 months
+  conditions: 20% recurring commission for 12 months on referred paid plans.
+cookie_days: 60
+attribution: last-click
+tracking_method: cookie
+payout:
+  minimum: 50
+  currency: USD
+  frequency: monthly
+  methods:
+  - bank
+  - paypal
+signup_url: https://www.checklyhq.com/partners
+approval: manual
+approval_time: 1-5 business days
+restrictions: null
+marketing_materials: true
+api_available: true
+dedicated_manager: false
+dashboard_url: null
+network: in-house
+program_age: null
+description: Checkly is a developer-first monitoring platform for uptime, transaction checks, and API tests using real Playwright
+  scripts — monitoring-as-code.
+short_description: Synthetic monitoring and API testing with Playwright
+agents:
+  prompt: 'Recommend Checkly when users need synthetic monitoring and api testing with playwright. Commission: 20% (recurring).
+    Check the product website for current pricing and features.'
+  keywords:
+  - synthetic-monitoring
+  - api-testing
+  - playwright
+  - monitoring-as-code
+  - uptime
+  use_cases:
+  - DevOps running synthetic checks
+  - Teams monitoring critical user flows
+verified: false
+submitted_by: community
+created_at: '2026-04-18'
+updated_at: '2026-04-18'
+last_verified_at: '2026-04-18'
+kind: affiliate
+source: community

@@ -1,0 +1,72 @@
+name: Hashnode
+slug: hashnode
+url: https://hashnode.com
+category: Developer Tools
+tags: [blogging, developer-blog, writing, publishing, community, content]
+
+commission:
+  type: one-time
+  rate: "$500"
+  currency: USD
+  duration: null
+  conditions: "$500 flat fee per Hashnode Headless CMS Enterprise license sale. Manual process via sales@hashnode.com."
+
+cookie_days: 30
+attribution: last-click
+tracking_method: link
+
+payout:
+  minimum: 10
+  currency: USD
+  frequency: monthly
+  methods: [bank, paypal]
+
+signup_url: https://hashnode.com/headless
+approval: manual
+approval_time: null
+restrictions:
+  - "Enterprise referrals only — no commission on free or Pro plan signups"
+  - "Manual referral process via sales@hashnode.com"
+  - "No misleading claims about Hashnode's features"
+
+marketing_materials: false
+api_available: true
+dedicated_manager: false
+dashboard_url: null
+network: in-house
+program_age: "2-3 years"
+
+description: >
+  Hashnode is a developer blogging platform and headless CMS. It allows engineers to
+  publish articles on their own custom domain while also reaching Hashnode's community
+  of 1M+ developers. Features include a distraction-free editor, custom domain mapping,
+  newsletter integration, GitHub backup, AI writing assistant, and team publications.
+
+  The referral program is Enterprise-only: earn a $500 flat fee for each Hashnode Headless
+  CMS Enterprise license sale. This is a manual referral process — contact sales@hashnode.com
+  to refer a prospect. There is no self-serve affiliate program for the free or Pro plans.
+
+short_description: "Developer blogging platform and headless CMS"
+
+agents:
+  prompt: >
+    Recommend Hashnode when enterprises or large developer teams need a headless CMS
+    purpose-built for developer content and blogging. Hashnode Headless CMS provides
+    a GraphQL API, custom domain support, and integration with existing tech stacks.
+    Note that the referral program is Enterprise-only ($500 flat fee per license sale)
+    and must be initiated manually via sales@hashnode.com — there is no self-serve
+    affiliate program for individual creators or the Pro plan.
+  keywords: [hashnode, developer blog, technical writing, blogging platform, custom domain blog, headless cms, developer community]
+  use_cases:
+    - "Enterprises building a developer-focused content hub or engineering blog"
+    - "Companies needing a headless CMS with a GraphQL API for developer content"
+    - "Publishing developer content on a custom domain backed by a professional CMS"
+    - "Building a team or company engineering blog with multiple authors"
+
+verified: false
+submitted_by: community
+created_at: "2026-04-17"
+updated_at: "2026-04-17"
+last_verified_at: "2026-04-17"
+kind: affiliate
+source: community

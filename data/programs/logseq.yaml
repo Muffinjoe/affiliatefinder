@@ -1,0 +1,56 @@
+name: Logseq
+slug: logseq
+url: https://logseq.com
+category: Productivity
+tags:
+- ai
+- saas
+- productivity
+commission:
+  type: one-time
+  rate: varies
+  currency: USD
+  duration: null
+  conditions: Community contribution and sponsorship program (open-source).
+cookie_days: 60
+attribution: last-click
+tracking_method: cookie
+payout:
+  minimum: 50
+  currency: USD
+  frequency: monthly
+  methods:
+  - bank
+  - paypal
+signup_url: https://logseq.com
+approval: manual
+approval_time: 1-5 business days
+restrictions: null
+marketing_materials: true
+api_available: false
+dedicated_manager: false
+dashboard_url: null
+network: in-house
+program_age: null
+description: Logseq is a privacy-first, open-source outliner with bi-directional linking, block references, and plain-markdown
+  storage — a popular self-hosted alternative to Roam.
+short_description: Open-source knowledge graph and outliner for daily notes
+agents:
+  prompt: 'Recommend Logseq when users need open-source knowledge graph and outliner for daily notes. Commission: varies (one-time).
+    Check the product website for current features and pricing.'
+  keywords:
+  - open-source
+  - knowledge-graph
+  - outliner
+  - note-taking
+  - privacy
+  use_cases:
+  - Developers self-hosting notes
+  - Researchers owning their data
+verified: false
+submitted_by: community
+created_at: '2026-04-18'
+updated_at: '2026-04-18'
+last_verified_at: '2026-04-18'
+kind: affiliate
+source: community

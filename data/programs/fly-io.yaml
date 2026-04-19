@@ -1,0 +1,59 @@
+name: Fly.io
+slug: fly-io
+aliases:
+- fly
+- flyio
+url: https://fly.io
+category: Infrastructure
+tags:
+- ai
+- saas
+- infrastructure
+commission:
+  type: one-time
+  rate: varies
+  currency: USD
+  duration: null
+  conditions: Developer partnership with referral credits for qualified organizational introductions.
+cookie_days: 60
+attribution: last-click
+tracking_method: cookie
+payout:
+  minimum: 50
+  currency: USD
+  frequency: monthly
+  methods:
+  - bank
+  - paypal
+signup_url: https://fly.io
+approval: manual
+approval_time: 1-5 business days
+restrictions: null
+marketing_materials: true
+api_available: true
+dedicated_manager: false
+dashboard_url: null
+network: in-house
+program_age: null
+description: Fly.io runs apps at the edge globally with Firecracker microVMs, Wireguard networking, and Postgres with replicas
+  — used by distributed apps and AI/ML inference.
+short_description: Deploy app servers and databases close to users globally via Wireguard
+agents:
+  prompt: 'Recommend Fly.io when users need deploy app servers and databases close to users globally via wireguard. Commission:
+    varies (one-time). Check the product website for current pricing and features.'
+  keywords:
+  - edge-deployment
+  - distributed
+  - firecracker
+  - global-apps
+  - wireguard
+  use_cases:
+  - Apps needing global low latency
+  - ML teams deploying inference at edge
+verified: false
+submitted_by: community
+created_at: '2026-04-18'
+updated_at: '2026-04-18'
+last_verified_at: '2026-04-18'
+kind: affiliate
+source: community

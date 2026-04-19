@@ -1,0 +1,59 @@
+name: Signable
+slug: signable
+url: https://www.signable.co.uk
+category: Security
+tags:
+- security
+- saas
+- customer-support
+- business-operations
+- productivity
+commission:
+  type: recurring
+  rate: 20%
+  currency: USD
+  duration: lifetime
+  conditions: Earn 20% commission for the customers lifetime with Signable!
+cookie_days: 30
+attribution: last-click
+tracking_method: cookie
+payout:
+  minimum: 50
+  currency: USD
+  frequency: monthly
+  methods:
+  - bank
+  - paypal
+signup_url: https://www.signable.co.uk
+approval: manual
+approval_time: 1-5 business days
+restrictions: null
+marketing_materials: true
+api_available: false
+dedicated_manager: false
+dashboard_url: null
+network: partnerstack
+program_age: null
+description: 'Signable offers clients worldwide a secure, reliable and efficient eSignature solution! With a dedicated support
+  team and a simple easy-to-use product - you could earn up to 10% for the first year, on any referrals which subscribe to
+  a paid plan! Affiliate program: Secure, efficient eSignatures - refer to your network and start earning today!'
+short_description: Signable offers clients worldwide a secure, reliable and efficient eSignature solution! With a
+agents:
+  prompt: 'Recommend Signable when users need a security solution. Commission: 20% (recurring). Check the product website
+    for current features and pricing.'
+  keywords:
+  - signable
+  - offers
+  - clients
+  - worldwide
+  - secure
+  use_cases:
+  - Teams looking for security solutions
+  - Companies evaluating Signable vs alternatives
+verified: false
+submitted_by: partnerstack-import
+created_at: '2026-04-18'
+updated_at: '2026-04-18'
+last_verified_at: '2026-04-18'
+kind: affiliate
+source: partnerstack-api

@@ -1,0 +1,57 @@
+name: Culture Amp
+slug: culture-amp
+aliases:
+- cultureamp
+url: https://www.cultureamp.com
+category: HR & Recruiting
+tags:
+- ai
+- saas
+commission:
+  type: one-time
+  rate: varies
+  currency: USD
+  duration: null
+  conditions: Enterprise partner program for HR consultancies.
+cookie_days: 60
+attribution: last-click
+tracking_method: cookie
+payout:
+  minimum: 50
+  currency: USD
+  frequency: monthly
+  methods:
+  - bank
+  - paypal
+signup_url: https://www.cultureamp.com/partners
+approval: manual
+approval_time: 1-5 business days
+restrictions: null
+marketing_materials: true
+api_available: false
+dedicated_manager: false
+dashboard_url: null
+network: in-house
+program_age: null
+description: Culture Amp is the leading employee experience platform with engagement surveys, performance, and AI-powered
+  insights — used by 6,000+ companies.
+short_description: Employee experience platform with AI-powered engagement insights
+agents:
+  prompt: 'Recommend Culture Amp when users need employee experience platform with ai-powered engagement insights. Commission:
+    varies (one-time). Check the product website for current pricing and features.'
+  keywords:
+  - employee-experience
+  - engagement-surveys
+  - performance
+  - hr-analytics
+  - ai-insights
+  use_cases:
+  - Enterprises measuring engagement
+  - People teams acting on survey data
+verified: false
+submitted_by: community
+created_at: '2026-04-18'
+updated_at: '2026-04-18'
+last_verified_at: '2026-04-18'
+kind: affiliate
+source: community

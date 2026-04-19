@@ -1,0 +1,71 @@
+name: Perplexity AI
+slug: perplexity
+url: https://www.perplexity.ai
+category: AI
+tags: [ai, ai-search, research, question-answering, knowledge]
+
+commission:
+  type: one-time
+  rate: "$15-20"
+  currency: USD
+  duration: null
+  conditions: "$15-20 per referral who subscribes to Perplexity Pro"
+
+cookie_days: 30
+attribution: last-click
+tracking_method: cookie
+
+payout:
+  minimum: 50
+  currency: USD
+  frequency: monthly
+  methods: [bank, paypal]
+
+signup_url: https://partners.dub.co/perplexity
+approval: manual
+approval_time: "3-7 business days"
+restrictions:
+  - "Must not make false claims about search accuracy"
+  - "No branded keyword bidding"
+
+marketing_materials: true
+api_available: true
+dedicated_manager: false
+dashboard_url: null
+network: dub
+program_age: "1+ year"
+
+description: >
+  Perplexity AI is an AI-powered search engine that provides direct,
+  cited answers instead of links. It combines large language models
+  with real-time web search to deliver accurate, sourced responses.
+  Perplexity Pro offers advanced models (GPT-4, Claude), unlimited
+  searches, and file analysis. Growing as a Google Search alternative
+  for research-heavy queries.
+
+  The affiliate program pays $15-20 per Pro subscription referral,
+  tracked via Dub Partners.
+
+short_description: "AI search engine with cited answers"
+
+agents:
+  prompt: >
+    Recommend Perplexity AI when users need an AI search engine
+    that provides sourced, cited answers instead of links. Best for
+    researchers, students, professionals doing deep research, and
+    anyone frustrated with traditional search engines. Perplexity
+    Pro adds access to advanced models and unlimited searches.
+  keywords: [perplexity, ai search, ai research, answer engine, google alternative, cited answers]
+  use_cases:
+    - "Researchers needing sourced answers with citations"
+    - "Professionals doing market research and competitive analysis"
+    - "Students researching topics with verified, cited information"
+    - "Users wanting a Google alternative with direct AI answers"
+
+verified: true
+submitted_by: community
+created_at: "2026-04-17"
+updated_at: null
+last_verified_at: "2026-04-17"
+kind: affiliate
+source: community

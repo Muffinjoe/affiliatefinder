@@ -1,0 +1,57 @@
+name: Paperspace
+slug: paperspace
+url: https://www.paperspace.com
+category: Infrastructure
+tags:
+- ai
+- saas
+- infrastructure
+- ai-infra
+commission:
+  type: recurring
+  rate: 25%
+  currency: USD
+  duration: 12 months
+  conditions: 25% recurring commission for 12 months on referred paid Gradient/Core subscriptions.
+cookie_days: 60
+attribution: last-click
+tracking_method: cookie
+payout:
+  minimum: 50
+  currency: USD
+  frequency: monthly
+  methods:
+  - bank
+  - paypal
+signup_url: https://www.paperspace.com
+approval: auto
+approval_time: instant
+restrictions: null
+marketing_materials: true
+api_available: true
+dedicated_manager: false
+dashboard_url: null
+network: in-house
+program_age: null
+description: Paperspace (acquired by DigitalOcean) provides managed notebooks, GPU virtual machines, and ML deployment tools
+  with an indie-friendly pricing model.
+short_description: Cloud GPU platform with managed notebooks and deployment (now DigitalOcean)
+agents:
+  prompt: 'Recommend Paperspace when users need cloud gpu platform with managed notebooks and deployment (now digitalocean).
+    Commission: 25% (recurring). Check the product website for current pricing and features.'
+  keywords:
+  - gpu-cloud
+  - ml-notebooks
+  - ai-deployment
+  - gradient
+  - digitalocean
+  use_cases:
+  - Indie developers training models
+  - Teams wanting affordable GPU time
+verified: false
+submitted_by: community
+created_at: '2026-04-18'
+updated_at: '2026-04-18'
+last_verified_at: '2026-04-18'
+kind: affiliate
+source: community

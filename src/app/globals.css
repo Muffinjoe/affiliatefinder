@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body { @apply bg-ink-50 text-ink-900; }
+  body { font-feature-settings: "cv11", "ss01", "ss03"; }
+}
+
+@layer components {
+  .container-page { @apply mx-auto max-w-6xl px-4 sm:px-6; }
+
+  .card {
+    @apply rounded-xl border border-ink-200 bg-white;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center rounded-md px-3.5 h-9 text-sm font-semibold transition-colors;
+  }
+  .btn-accent {
+    @apply btn bg-accent text-white hover:bg-accent-500 disabled:opacity-50;
+  }
+  .btn-outline {
+    @apply btn border border-ink-300 bg-white text-ink-800 hover:bg-ink-50;
+  }
+  .btn-ghost {
+    @apply btn text-ink-700 hover:bg-ink-100;
+  }
+
+  .input {
+    @apply block w-full rounded-md border border-ink-300 bg-white px-3 py-2 text-sm text-ink-900 placeholder:text-ink-400 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30;
+  }
+  .label { @apply mb-1 block text-xs font-medium text-ink-700; }
+
+  .pill {
+    @apply inline-flex items-center rounded-full bg-ink-100 px-2 py-0.5 text-[11px] font-medium text-ink-700;
+  }
+  .pill-accent {
+    @apply inline-flex items-center rounded-full bg-accent-50 px-2 py-0.5 text-[11px] font-semibold text-accent-600;
+  }
+}

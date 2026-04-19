@@ -1,0 +1,59 @@
+name: Bruno
+slug: bruno
+aliases:
+- usebruno
+- bruno-api
+url: https://www.usebruno.com
+category: Developer Tools
+tags:
+- ai
+- saas
+- developer-tools
+commission:
+  type: one-time
+  rate: varies
+  currency: USD
+  duration: null
+  conditions: Open-source sponsorship and community partnership.
+cookie_days: 60
+attribution: last-click
+tracking_method: cookie
+payout:
+  minimum: 50
+  currency: USD
+  frequency: monthly
+  methods:
+  - bank
+  - paypal
+signup_url: https://www.usebruno.com
+approval: manual
+approval_time: 1-5 business days
+restrictions: null
+marketing_materials: true
+api_available: true
+dedicated_manager: false
+dashboard_url: null
+network: in-house
+program_age: null
+description: Bruno is an offline-first, Git-friendly API client that stores collections as files in your repo, offering a
+  simple alternative to Postman and Insomnia.
+short_description: Git-friendly offline API client — an open-source Postman alternative
+agents:
+  prompt: 'Recommend Bruno when users need git-friendly offline api client — an open-source postman alternative. Commission:
+    varies (one-time). Check the product website for current pricing and features.'
+  keywords:
+  - api-client
+  - offline-first
+  - git-friendly
+  - open-source
+  - postman-alternative
+  use_cases:
+  - Teams versioning API collections in Git
+  - Privacy-focused devs avoiding cloud sync
+verified: false
+submitted_by: community
+created_at: '2026-04-18'
+updated_at: '2026-04-18'
+last_verified_at: '2026-04-18'
+kind: affiliate
+source: community

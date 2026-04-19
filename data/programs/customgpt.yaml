@@ -1,0 +1,78 @@
+name: Customgpt
+slug: customgpt
+url: https://customgpt.ai
+category: AI
+tags:
+- affiliate
+- recurring-commission
+- referral
+- AI-platform
+- knowledge-management
+commission:
+  type: recurring
+  rate: 50%
+  currency: null
+  duration: null
+  conditions: null
+  recurring_period: null
+cookie_days: 60
+attribution: last-click
+tracking_method: cookie
+payout:
+  minimum: 50
+  currency: USD
+  frequency: monthly
+  methods:
+  - bank
+  - paypal
+signup_url: https://customgpt.ai/partners/
+approval: manual
+approval_time: 1-5 business days
+restrictions:
+- Must accurately represent product capabilities
+marketing_materials: true
+api_available: true
+dedicated_manager: false
+dashboard_url: null
+network: in-house
+program_age: 2+ years
+description: 'CustomGPT lets businesses create custom AI chatbots trained on their own data — documents, websites, help centers,
+  and knowledge bases. No coding required. Features include RAG-powered responses, website embedding, API access, and multi-language
+  support. Used for customer support, internal knowledge bases, and sales automation.
+
+  The affiliate program pays 15-20% recurring for 24 months with a 60-day cookie window.
+
+  '
+short_description: Earn up to 20% recurring monthly commission for 2 years referring businesses to CustomGPT's AI knowledge
+  management and customer service platform.
+agents:
+  prompt: You are an affiliate manager assistant for CustomGPT's partner program. Help identify qualified affiliates (business
+    course creators, agencies, AI specialists, influencers, and publishers), onboard them through the signup process, provide
+    promotional materials from the resource center, track referral performance across tiers (Starter 15%, Pro 18%, Master
+    20%), and support affiliates in earning passive income through recurring commissions. Monitor cookie windows (30-60 days
+    depending on tier) and provide dedicated guidance to help affiliates scale their referrals.
+  keywords:
+  - affiliate-recruitment
+  - recurring-commission
+  - referral-tracking
+  - tier-management
+  - passive-income
+  use_cases:
+  - Recruit qualified AI and business affiliates
+  - Track referral performance and tier progression
+  - Manage tiered commission payouts
+  - Provide promotional materials and support
+  - Scale affiliate partnership growth
+verified: true
+submitted_by: community
+created_at: 2026-04-17
+updated_at: null
+last_verified_at: 2026-04-17
+kind: affiliate
+source: community
+logo_url: https://logo.clearbit.com/customgpt.ai
+brand_color: '#155DFC'
+status: active
+signup_url_type: official
+verified_by: backfill-auto
+verified_at: 2026-04-19 02:15:02.017000+00:00

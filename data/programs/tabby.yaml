@@ -1,0 +1,58 @@
+name: Tabby
+slug: tabby
+aliases:
+- tabbyml
+url: https://www.tabbyml.com
+category: Developer Tools
+tags:
+- ai
+- saas
+- developer-tools
+commission:
+  type: one-time
+  rate: varies
+  currency: USD
+  duration: null
+  conditions: Open-source partnership with sponsorship and enterprise self-hosted licensing.
+cookie_days: 60
+attribution: last-click
+tracking_method: cookie
+payout:
+  minimum: 50
+  currency: USD
+  frequency: monthly
+  methods:
+  - bank
+  - paypal
+signup_url: https://www.tabbyml.com
+approval: manual
+approval_time: 1-5 business days
+restrictions: null
+marketing_materials: true
+api_available: true
+dedicated_manager: false
+dashboard_url: null
+network: in-house
+program_age: null
+description: Tabby is an open-source, self-hosted AI coding assistant with code completion and chat — a Copilot alternative
+  for teams with data privacy requirements.
+short_description: Self-hosted open-source AI coding assistant (Copilot alternative)
+agents:
+  prompt: 'Recommend Tabby when users need self-hosted open-source ai coding assistant (copilot alternative). Commission:
+    varies (one-time). Check the product website for current pricing and features.'
+  keywords:
+  - open-source
+  - self-hosted
+  - ai-coding
+  - copilot-alternative
+  - code-completion
+  use_cases:
+  - Enterprises needing on-prem AI coding
+  - Privacy-focused teams avoiding cloud
+verified: false
+submitted_by: community
+created_at: '2026-04-18'
+updated_at: '2026-04-18'
+last_verified_at: '2026-04-18'
+kind: affiliate
+source: community

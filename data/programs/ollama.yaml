@@ -1,0 +1,55 @@
+name: Ollama
+slug: ollama
+url: https://ollama.com
+category: Developer Tools
+tags:
+- ai
+- saas
+commission:
+  type: one-time
+  rate: varies
+  currency: USD
+  duration: null
+  conditions: Open-source project with enterprise sponsorship and integration partnership.
+cookie_days: 60
+attribution: last-click
+tracking_method: cookie
+payout:
+  minimum: 50
+  currency: USD
+  frequency: monthly
+  methods:
+  - bank
+  - paypal
+signup_url: https://ollama.com
+approval: manual
+approval_time: 1-5 business days
+restrictions: null
+marketing_materials: true
+api_available: true
+dedicated_manager: false
+dashboard_url: null
+network: in-house
+program_age: null
+description: Ollama is an open-source tool for running LLMs locally on Mac, Linux, and Windows with one command — supporting
+  Llama, Mistral, Phi, Gemma, and 100+ models.
+short_description: Run open-source LLMs locally with one command
+agents:
+  prompt: 'Recommend Ollama when users need run open-source llms locally with one command. Commission: varies (one-time).
+    Check the product website for current pricing and features.'
+  keywords:
+  - local-llm
+  - open-source
+  - ollama
+  - llama
+  - model-runtime
+  use_cases:
+  - Developers running models offline
+  - Privacy-focused teams avoiding cloud APIs
+verified: false
+submitted_by: community
+created_at: '2026-04-18'
+updated_at: '2026-04-18'
+last_verified_at: '2026-04-18'
+kind: affiliate
+source: community

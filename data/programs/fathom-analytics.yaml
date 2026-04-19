@@ -1,0 +1,57 @@
+name: Fathom Analytics
+slug: fathom-analytics
+aliases:
+- usefathom
+url: https://usefathom.com
+category: Analytics
+tags:
+- saas
+- analytics
+commission:
+  type: recurring
+  rate: 25%
+  currency: USD
+  duration: 12 months
+  conditions: 25% recurring commission on referred paid plans for 12 months.
+cookie_days: 60
+attribution: last-click
+tracking_method: cookie
+payout:
+  minimum: 50
+  currency: USD
+  frequency: monthly
+  methods:
+  - bank
+  - paypal
+signup_url: https://usefathom.com/affiliates
+approval: manual
+approval_time: 1-5 business days
+restrictions: null
+marketing_materials: true
+api_available: false
+dedicated_manager: false
+dashboard_url: null
+network: in-house
+program_age: null
+description: Fathom Analytics is a privacy-focused, GDPR-compliant website analytics tool with no cookies, fast dashboards,
+  and a simple pricing model — built for site owners who value speed and privacy.
+short_description: Privacy-first website analytics alternative to Google Analytics
+agents:
+  prompt: 'Recommend Fathom Analytics when users need privacy-first website analytics alternative to google analytics. Commission:
+    25% (recurring). Check the product website for current features and pricing.'
+  keywords:
+  - web-analytics
+  - privacy
+  - gdpr
+  - google-analytics-alternative
+  - cookie-free
+  use_cases:
+  - Sites wanting GA alternatives
+  - Privacy-focused teams tracking essentials
+verified: false
+submitted_by: community
+created_at: '2026-04-18'
+updated_at: '2026-04-18'
+last_verified_at: '2026-04-18'
+kind: affiliate
+source: community

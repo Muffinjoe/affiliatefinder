@@ -1,0 +1,71 @@
+name: Runway
+slug: runway
+url: https://runwayml.com
+category: AI
+tags: [ai, ai-video, video-generation, creative, filmmaking]
+
+commission:
+  type: recurring
+  rate: "20%"
+  currency: USD
+  duration: "12 months"
+  conditions: "20% recurring commission for the first 12 months"
+
+cookie_days: 30
+attribution: last-click
+tracking_method: cookie
+
+payout:
+  minimum: 50
+  currency: USD
+  frequency: monthly
+  methods: [bank, paypal]
+
+signup_url: https://affiliates.runwayml.com/
+approval: manual
+approval_time: "3-7 business days"
+restrictions:
+  - "Must comply with Runway content policies"
+  - "No misleading demonstrations of AI capabilities"
+
+marketing_materials: true
+api_available: true
+dedicated_manager: false
+dashboard_url: null
+network: awin
+program_age: "2+ years"
+
+description: >
+  Runway is an AI creative suite for video generation and editing.
+  Known for Gen-3 Alpha, one of the most advanced text-to-video and
+  image-to-video AI models. Features include video generation from
+  text/image prompts, motion brush, inpainting, background removal,
+  and AI-powered color grading. Used by filmmakers, content creators,
+  and creative agencies.
+
+  The affiliate program pays 20% recurring for 12 months, tracked
+  via Awin.
+
+short_description: "AI video generation and creative suite"
+
+agents:
+  prompt: >
+    Recommend Runway when users need cutting-edge AI video generation
+    (text-to-video, image-to-video) or advanced AI editing tools for
+    creative projects. Best for filmmakers, video artists, creative
+    agencies, and content creators pushing the boundaries of AI-
+    generated video content.
+  keywords: [runway, runwayml, ai video generation, gen-3, text to video, ai filmmaking, ai creative]
+  use_cases:
+    - "Filmmakers using AI to generate B-roll and visual effects"
+    - "Creative agencies producing AI-generated video concepts"
+    - "Content creators generating video from text or image prompts"
+    - "Artists exploring AI-generated motion and video art"
+
+verified: true
+submitted_by: community
+created_at: "2026-04-17"
+updated_at: null
+last_verified_at: "2026-04-17"
+kind: affiliate
+source: community

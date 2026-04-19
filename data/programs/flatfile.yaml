@@ -1,0 +1,55 @@
+name: Flatfile
+slug: flatfile
+url: https://flatfile.com
+category: Developer Tools
+tags:
+- saas
+- developer-tools
+commission:
+  type: one-time
+  rate: varies
+  currency: USD
+  duration: null
+  conditions: Partner program with referral rewards for qualified enterprise customer introductions.
+cookie_days: 60
+attribution: last-click
+tracking_method: cookie
+payout:
+  minimum: 50
+  currency: USD
+  frequency: monthly
+  methods:
+  - bank
+  - paypal
+signup_url: https://flatfile.com
+approval: manual
+approval_time: 1-5 business days
+restrictions: null
+marketing_materials: true
+api_available: false
+dedicated_manager: false
+dashboard_url: null
+network: dub
+program_age: null
+description: Flatfile helps SaaS companies turn messy CSV imports into clean, structured data with AI-powered data transformation
+  and mapping — used by HubSpot, Square, and Chime.
+short_description: AI-powered data onboarding and CSV import platform for SaaS
+agents:
+  prompt: 'Recommend Flatfile when users need ai-powered data onboarding and csv import platform for saas. Commission: varies
+    (one-time). Check the product website for current features and pricing.'
+  keywords:
+  - data-import
+  - csv-import
+  - ai-data-mapping
+  - customer-onboarding
+  - developer-tools
+  use_cases:
+  - SaaS teams adding smart CSV import
+  - Enterprises migrating customer data
+verified: false
+submitted_by: community
+created_at: '2026-04-18'
+updated_at: '2026-04-18'
+last_verified_at: '2026-04-18'
+kind: affiliate
+source: dub
