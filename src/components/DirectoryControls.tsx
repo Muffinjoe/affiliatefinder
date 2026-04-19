@@ -78,7 +78,7 @@ export function DirectoryControls() {
       </div>
 
       {/* Sort tabs */}
-      <div className="flex gap-1 overflow-x-auto border-b border-ink-200">
+      <div className="flex flex-wrap gap-1 border-b border-ink-200">
         {SORT_TABS.map((t) => {
           const active = sort === t.key;
           return (
