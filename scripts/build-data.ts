@@ -12,7 +12,17 @@ import YAML from "yaml";
 const YAML_DIR = resolve(process.cwd(), "data/programs");
 const OUT_DIR = resolve(process.cwd(), "src/data");
 const LOGO_DIR = resolve(process.cwd(), "public/logos");
+const REWRITES_PATH = resolve(process.cwd(), "data/rewrites.json");
 const LOGO_EXTS = ["png", "webp", "jpg", "jpeg", "svg"] as const;
+
+function loadRewrites(): Record<string, { rewritten: string }> {
+  if (!existsSync(REWRITES_PATH)) return {};
+  try {
+    return JSON.parse(readFileSync(REWRITES_PATH, "utf8"));
+  } catch {
+    return {};
+  }
+}
 
 function findLogo(slug: string): string | null {
   for (const ext of LOGO_EXTS) {
@@ -78,6 +88,7 @@ function main() {
   mkdirSync(OUT_DIR, { recursive: true });
 
   const files = readdirSync(YAML_DIR).filter((f) => f.endsWith(".yaml") || f.endsWith(".yml"));
+  const rewrites = loadRewrites();
   const programs: Program[] = [];
   const catCounts: Record<string, number> = {};
   const skipped: string[] = [];
@@ -131,7 +142,7 @@ function main() {
       dashboard_url: doc.dashboard_url ?? null,
       network: doc.network ?? null,
       program_age: doc.program_age ?? null,
-      description: String(doc.description ?? ""),
+      description: rewrites[String(doc.slug)]?.rewritten || String(doc.description ?? ""),
       short_description: String(doc.short_description ?? ""),
       agents: doc.agents
         ? {
@@ -158,7 +169,8 @@ function main() {
   writeFileSync(join(OUT_DIR, "categories.json"), JSON.stringify(catCounts));
 
   const withLogos = programs.filter((p) => p.logo).length;
-  console.log(`[build-data] wrote ${programs.length} programs across ${Object.keys(catCounts).length} categories (${withLogos} with logos)`);
+  const withRewrites = Object.keys(rewrites).length;
+  console.log(`[build-data] wrote ${programs.length} programs across ${Object.keys(catCounts).length} categories (${withLogos} logos, ${withRewrites} rewrites)`);
   if (skipped.length) {
     console.warn(`[build-data] skipped ${skipped.length} files:`);
     skipped.slice(0, 10).forEach((s) => console.warn("  -", s));
