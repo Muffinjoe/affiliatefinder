@@ -19,5 +19,6 @@ export function getSiteUrl(req?: Request): string {
   return "http://localhost:3000";
 }
 
-// $50 one-time featured boost
+// $29 to submit a listing, $50 add-on for 30-day featured boost
+export const LISTING_PRICE_CENTS = 2900;
 export const FEATURED_PRICE_CENTS = 5000;

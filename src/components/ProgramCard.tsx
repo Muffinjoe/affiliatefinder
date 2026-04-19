@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Program, isFeatured, formatCommission, iconLetter } from "@/lib/programs";
+import { Program, formatCommission, iconLetter } from "@/lib/programs";
 
 function Logo({ program, size }: { program: Program; size: "sm" | "md" | "lg" }) {
   const px = size === "lg" ? 56 : size === "md" ? 40 : 36;
@@ -27,8 +27,7 @@ function Logo({ program, size }: { program: Program; size: "sm" | "md" | "lg" })
   );
 }
 
-export function ProgramCard({ program }: { program: Program }) {
-  const featured = isFeatured(program);
+export function ProgramCard({ program, featured = false }: { program: Program; featured?: boolean }) {
   return (
     <Link
       href={`/p/${program.slug}`}
@@ -58,8 +57,7 @@ export function ProgramCard({ program }: { program: Program }) {
   );
 }
 
-export function ProgramRow({ program }: { program: Program }) {
-  const featured = isFeatured(program);
+export function ProgramRow({ program, featured = false }: { program: Program; featured?: boolean }) {
   return (
     <Link
       href={`/p/${program.slug}`}
@@ -73,6 +71,7 @@ export function ProgramRow({ program }: { program: Program }) {
           <span className="truncate text-sm font-semibold text-ink-900">{program.name}</span>
           {featured && <span className="pill-accent">Featured</span>}
           <span className="pill">{program.category}</span>
+          {program.commission.type && <span className="pill">{program.commission.type}</span>}
         </div>
         <p className="mt-0.5 truncate text-xs text-ink-500">
           {program.short_description || program.description}

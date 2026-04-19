@@ -31,6 +31,7 @@ function Header() {
         </Link>
         <nav className="flex items-center gap-1 text-sm">
           <Link href="/browse" className="btn-ghost">Browse</Link>
+          <Link href="/categories" className="btn-ghost hidden sm:inline-flex">Categories</Link>
           <Link href="/pricing" className="btn-ghost hidden sm:inline-flex">Pricing</Link>
           <Link href="/submit" className="btn-accent ml-1">Add program</Link>
         </nav>
@@ -46,6 +47,7 @@ function Footer() {
         <div>© {new Date().getFullYear()} AffiliateFinder.co</div>
         <div className="flex gap-4">
           <Link href="/browse" className="hover:text-ink-800">Browse</Link>
+          <Link href="/categories" className="hover:text-ink-800">Categories</Link>
           <Link href="/submit" className="hover:text-ink-800">Add program</Link>
           <Link href="/pricing" className="hover:text-ink-800">Pricing</Link>
         </div>

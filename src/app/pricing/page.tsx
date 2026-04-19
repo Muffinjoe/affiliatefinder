@@ -9,73 +9,76 @@ export default function PricingPage({ searchParams }: { searchParams: { slug?: s
       <div className="text-center">
         <span className="pill-accent">Pricing</span>
         <h1 className="mt-3 text-3xl font-bold tracking-tight text-ink-900 sm:text-4xl">
-          Free for affiliates. Pay to stand out.
+          Simple, one-time pricing.
         </h1>
         <p className="mx-auto mt-3 max-w-xl text-sm text-ink-500">
-          Listing is free for every affiliate program. Pay for visibility when you want it.
+          Pay once, get found forever. No subscriptions, no listing renewals.
         </p>
       </div>
 
-      <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
+      <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
         <Plan
-          name="Free listing"
-          price="$0"
-          cadence="forever"
+          name="Listing"
+          price="$29"
+          cadence="one-time, listed forever"
           blurb="Everything you need to get discovered."
           features={[
-            "Listed in the full directory",
+            "Listed in the directory — permanent",
             "Own program page with commission, cookie, network",
-            "Search + category filters",
-            "Quick review (24h)",
+            "Searchable + category / commission-type filters",
+            "Reviewed and published within 24 hours",
           ]}
-          cta={{ href: "/submit", label: "Add your program" }}
+          cta={{ href: "/submit", label: "Submit listing — $29" }}
         />
         <Plan
-          name="Featured boost"
-          price="$50"
-          cadence="one-time, 30 days"
+          name="Listing + Featured"
+          price="$79"
+          cadence="$29 listing + $50 featured (30 days)"
           highlighted
           badge="Most popular"
-          blurb="Pinned across the site for a month."
+          blurb="Maximum visibility from day one."
           features={[
-            "Pinned to top of directory",
-            "Highlighted on homepage",
+            "Everything in Listing",
+            "Pinned to top of directory & homepage",
             "Top of its category",
-            "Skip the review queue (goes live instantly)",
             "Featured badge on your listing",
+            "Skip the review queue — goes live instantly",
           ]}
-          cta={{ href: `/submit${slug ? `?slug=${slug}` : ""}`, label: "Get featured for $50" }}
+          cta={{ href: `/submit${slug ? `?slug=${slug}` : ""}`, label: "Submit + feature — $79" }}
         />
-        <Plan
-          name="Boosted placement"
-          price="Custom"
-          cadence="talk to us"
-          blurb="Longer commitments & sponsor slots."
-          features={[
-            "3-month or annual featured",
-            "Homepage sponsor slot",
-            "Newsletter inclusion",
-            "Custom placement in category pages",
-          ]}
-          cta={{ href: "mailto:joe@primeeight.co.uk?subject=AffiliateFinder sponsor enquiry", label: "Contact us" }}
-        />
+      </div>
+
+      <div className="mt-4 rounded-lg border border-ink-200 bg-white p-5 text-center text-sm text-ink-600">
+        Already listed? Boost any program for just $50/month featured.{" "}
+        <a
+          href="mailto:joe@primeeight.co.uk?subject=AffiliateFinder featured upgrade"
+          className="font-medium text-accent hover:underline"
+        >
+          Email us →
+        </a>
       </div>
 
       <div className="mt-12 rounded-xl border border-ink-200 bg-white p-6">
         <h2 className="text-lg font-bold text-ink-900">FAQ</h2>
         <div className="mt-4 grid grid-cols-1 gap-5 md:grid-cols-2">
-          <Faq q="Is the free listing really free?">
-            Yes. Every affiliate program can list for free, forever. We make money on upgrades.
+          <Faq q="Is the $29 one-time?">
+            Yes. Pay once, stay in the directory. No subscription, no annual renewal.
           </Faq>
           <Faq q="How fast does a featured listing go live?">
-            Immediately after payment. You'll get a receipt by email and a link to your live page.
+            Immediately after payment. You'll get a receipt and a link to your live page.
           </Faq>
-          <Faq q="How do you verify programs?">
-            We check the signup URL, confirm the program is live, and review commission claims.
-            Verified programs get a ✓ badge.
+          <Faq q="What if I want to test first?">
+            Every listing is reviewed before publishing — if we reject, you'll get a refund.
+            Reach out any time.
+          </Faq>
+          <Faq q="Can I upgrade to featured later?">
+            Yep — email joe@primeeight.co.uk and we'll invoice the $50 boost for your existing listing.
           </Faq>
           <Faq q="Can I claim an existing listing?">
-            Yes — submit with the same URL and email us from the domain. We'll transfer ownership.
+            Submit with the same URL, email us from the domain, and we'll transfer ownership — no re-charge.
+          </Faq>
+          <Faq q="Do you offer refunds?">
+            Full refund if we reject your listing. After approval, all sales final.
           </Faq>
         </div>
       </div>

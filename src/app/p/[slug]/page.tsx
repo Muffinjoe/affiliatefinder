@@ -1,16 +1,19 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ALL_PROGRAMS, getProgramBySlug, isFeatured, formatCommission, filterPrograms } from "@/lib/programs";
+import { STATIC_PROGRAMS, getDirectory, formatCommission, filterPrograms } from "@/lib/programs";
 import { ProgramCard, Logo } from "@/components/ProgramCard";
 
 type Params = { slug: string };
 
+export const revalidate = 60;
+
 export function generateStaticParams() {
-  return ALL_PROGRAMS.map((p) => ({ slug: p.slug }));
+  return STATIC_PROGRAMS.map((p) => ({ slug: p.slug }));
 }
 
-export function generateMetadata({ params }: { params: Params }) {
-  const p = getProgramBySlug(params.slug);
+export async function generateMetadata({ params }: { params: Params }) {
+  const { programs } = await getDirectory();
+  const p = programs.find((x) => x.slug === params.slug);
   if (!p) return { title: "Not found — AffiliateFinder" };
   return {
     title: `${p.name} affiliate program — AffiliateFinder`,
@@ -18,15 +21,16 @@ export function generateMetadata({ params }: { params: Params }) {
   };
 }
 
-export default function ProgramPage({ params }: { params: Params }) {
-  const p = getProgramBySlug(params.slug);
+export default async function ProgramPage({ params }: { params: Params }) {
+  const { programs, featured } = await getDirectory();
+  const p = programs.find((x) => x.slug === params.slug);
   if (!p) notFound();
 
-  const related = filterPrograms(ALL_PROGRAMS, { category: p.category, sort: "featured" })
+  const isFeatured = featured.has(p.slug);
+  const related = filterPrograms(programs, featured, { category: p.category, sort: "featured" })
     .filter((x) => x.slug !== p.slug)
     .slice(0, 4);
 
-  const featured = isFeatured(p);
   const signup = p.signup_url || p.url;
 
   return (
@@ -43,13 +47,13 @@ export default function ProgramPage({ params }: { params: Params }) {
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_320px]">
         <div>
-          <div className={`card p-6 ${featured ? "border-accent-500 ring-1 ring-accent-500/10" : ""}`}>
+          <div className={`card p-6 ${isFeatured ? "border-accent-500 ring-1 ring-accent-500/10" : ""}`}>
             <div className="flex items-start gap-4">
               <Logo program={p} size="lg" />
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2">
                   <h1 className="text-2xl font-bold text-ink-900">{p.name}</h1>
-                  {featured && <span className="pill-accent">Featured</span>}
+                  {isFeatured && <span className="pill-accent">Featured</span>}
                   {p.verified && <span className="pill">✓ Verified</span>}
                 </div>
                 <p className="mt-1 text-sm text-ink-600">{p.short_description}</p>
@@ -106,7 +110,9 @@ export default function ProgramPage({ params }: { params: Params }) {
             <section className="mt-8">
               <h2 className="mb-3 text-sm font-semibold text-ink-900">Similar programs in {p.category}</h2>
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                {related.map((r) => <ProgramCard key={r.slug} program={r} />)}
+                {related.map((r) => (
+                  <ProgramCard key={r.slug} program={r} featured={featured.has(r.slug)} />
+                ))}
               </div>
             </section>
           )}

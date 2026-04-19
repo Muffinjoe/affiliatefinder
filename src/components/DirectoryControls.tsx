@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState, useTransition } from "react";
-import { CATEGORIES, CATEGORY_COUNTS } from "@/lib/programs";
+import { CATEGORIES, CATEGORY_COUNTS, COMMISSION_TYPES } from "@/lib/programs";
 
 export function DirectoryControls() {
   const router = useRouter();
@@ -29,11 +29,14 @@ export function DirectoryControls() {
   }
 
   const category = sp.get("category") ?? "all";
+  const commission = sp.get("commission") ?? "all";
   const sort = sp.get("sort") ?? "featured";
 
+  const total = Object.values(CATEGORY_COUNTS).reduce((a, b) => a + b, 0);
+
   return (
-    <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-      <form onSubmit={onSearchSubmit} className="flex-1">
+    <div className="flex flex-col gap-3">
+      <form onSubmit={onSearchSubmit}>
         <div className="relative">
           <input
             type="search"
@@ -48,17 +51,30 @@ export function DirectoryControls() {
           </span>
         </div>
       </form>
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2">
         <select
           value={category}
           onChange={(e) => updateParam("category", e.target.value)}
           className="input w-auto"
           aria-label="Category"
         >
-          <option value="all">All categories ({Object.values(CATEGORY_COUNTS).reduce((a, b) => a + b, 0)})</option>
+          <option value="all">All categories ({total})</option>
           {CATEGORIES.map((c) => (
             <option key={c} value={c}>
               {c} ({CATEGORY_COUNTS[c]})
+            </option>
+          ))}
+        </select>
+        <select
+          value={commission}
+          onChange={(e) => updateParam("commission", e.target.value)}
+          className="input w-auto"
+          aria-label="Commission type"
+        >
+          <option value="all">All commission types</option>
+          {COMMISSION_TYPES.map((c) => (
+            <option key={c} value={c}>
+              {c}
             </option>
           ))}
         </select>
@@ -72,8 +88,20 @@ export function DirectoryControls() {
           <option value="newest">Newest</option>
           <option value="name">A–Z</option>
         </select>
+        {(category !== "all" || commission !== "all" || (sp.get("q") ?? "")) && (
+          <button
+            type="button"
+            onClick={() => {
+              setQ("");
+              startTransition(() => router.push("/browse"));
+            }}
+            className="btn-ghost h-9"
+          >
+            Clear
+          </button>
+        )}
+        {pending && <span className="text-xs text-ink-400">Loading…</span>}
       </div>
-      {pending && <span className="text-xs text-ink-400">Loading…</span>}
     </div>
   );
 }

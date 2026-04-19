@@ -2,24 +2,23 @@ import Link from "next/link";
 
 export const metadata = { title: "Thanks — AffiliateFinder" };
 
-export default function ThanksPage({ searchParams }: { searchParams: { featured?: string } }) {
-  const state = searchParams.featured;
+export default function ThanksPage({ searchParams }: { searchParams: { status?: string } }) {
+  const status = searchParams.status;
   return (
     <div className="container-page max-w-xl py-16 text-center">
-      {state === "success" ? (
+      {status === "paid" ? (
         <>
           <h1 className="text-3xl font-bold text-ink-900">Payment received 🎉</h1>
           <p className="mt-2 text-sm text-ink-600">
-            Your listing will go live as a featured program within 1 hour.
-            We've emailed you a receipt.
+            If you added the featured boost, your listing is live now. Otherwise we'll review
+            and publish within 24 hours. Receipt is in your inbox.
           </p>
         </>
-      ) : state === "cancel" ? (
+      ) : status === "cancel" ? (
         <>
-          <h1 className="text-3xl font-bold text-ink-900">No payment taken</h1>
+          <h1 className="text-3xl font-bold text-ink-900">Payment cancelled</h1>
           <p className="mt-2 text-sm text-ink-600">
-            Your free listing is still submitted and queued for review. You can
-            upgrade any time from the pricing page.
+            No charge made. Your submission wasn't saved — pop back to the form any time to try again.
           </p>
         </>
       ) : (

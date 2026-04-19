@@ -1,5 +1,6 @@
 import raw from "@/data/programs.json";
 import catMap from "@/data/categories.json";
+import { listAllSubmissions, getFeaturedSlugs, submissionToProgram } from "@/lib/submissions";
 
 export type Program = {
   slug: string;
@@ -46,39 +47,69 @@ export type Program = {
   logo?: string | null;
 };
 
-export const ALL_PROGRAMS: Program[] = raw as Program[];
+export const STATIC_PROGRAMS: Program[] = raw as Program[];
 export const CATEGORY_COUNTS: Record<string, number> = catMap as Record<string, number>;
 export const CATEGORIES = Object.keys(CATEGORY_COUNTS).sort();
 
-// Featured slugs — a simple static allowlist for MVP. New featured boosts ping
-// admin via email and get appended here by hand (or via a future admin tool).
-export const FEATURED_SLUGS = new Set<string>([
-  "ahrefs",
-  "1password",
-  "algolia",
-  "activecampaign",
-]);
+export const COMMISSION_TYPES = ["one-time", "recurring", "tiered", "hybrid"] as const;
+export type CommissionType = (typeof COMMISSION_TYPES)[number];
 
-export function isFeatured(p: Pick<Program, "slug">): boolean {
-  return FEATURED_SLUGS.has(p.slug);
+// Hardcoded fallback featured set — runtime overrides come from Vercel Blob.
+const STATIC_FEATURED = new Set<string>(["ahrefs", "1password", "algolia", "activecampaign"]);
+
+/**
+ * Server-only: returns the live merged dataset (static YAML + approved
+ * user submissions) and the live featured set.
+ */
+export async function getDirectory(): Promise<{
+  programs: Program[];
+  featured: Set<string>;
+}> {
+  let extras: Program[] = [];
+  let blobFeatured = new Set<string>();
+  try {
+    const [subs, feat] = await Promise.all([listAllSubmissions(), getFeaturedSlugs()]);
+    extras = subs.filter((s) => s.status === "approved").map(submissionToProgram);
+    blobFeatured = feat;
+  } catch (err) {
+    console.error("[directory] blob read failed:", err);
+  }
+  const seen = new Set<string>();
+  const merged: Program[] = [];
+  for (const p of [...extras, ...STATIC_PROGRAMS]) {
+    if (seen.has(p.slug)) continue;
+    seen.add(p.slug);
+    merged.push(p);
+  }
+  const featured = new Set<string>([...STATIC_FEATURED, ...blobFeatured]);
+  return { programs: merged, featured };
 }
 
-export function getProgramBySlug(slug: string): Program | null {
-  return ALL_PROGRAMS.find((p) => p.slug === slug) ?? null;
+export function isFeaturedIn(featured: Set<string>, p: Pick<Program, "slug">): boolean {
+  return featured.has(p.slug);
 }
 
 export type SortKey = "featured" | "newest" | "name";
 
-type Filter = {
+export type DirectoryFilter = {
   q?: string;
   category?: string;
+  commission?: string;
   sort?: SortKey;
 };
 
-export function filterPrograms(programs: Program[], f: Filter): Program[] {
+export function filterPrograms(
+  programs: Program[],
+  featured: Set<string>,
+  f: DirectoryFilter
+): Program[] {
   let out = programs;
   if (f.category && f.category !== "all") {
     out = out.filter((p) => p.category === f.category);
+  }
+  if (f.commission && f.commission !== "all") {
+    const target = f.commission.toLowerCase();
+    out = out.filter((p) => (p.commission.type ?? "").toLowerCase() === target);
   }
   if (f.q && f.q.trim()) {
     const needle = f.q.trim().toLowerCase();
@@ -107,8 +138,8 @@ export function filterPrograms(programs: Program[], f: Filter): Program[] {
     sorted.sort((a, b) => (b.updated_at ?? "").localeCompare(a.updated_at ?? ""));
   } else {
     sorted.sort((a, b) => {
-      const af = isFeatured(a) ? 1 : 0;
-      const bf = isFeatured(b) ? 1 : 0;
+      const af = featured.has(a.slug) ? 1 : 0;
+      const bf = featured.has(b.slug) ? 1 : 0;
       if (af !== bf) return bf - af;
       return a.name.localeCompare(b.name);
     });

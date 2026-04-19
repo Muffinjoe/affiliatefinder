@@ -1,10 +1,13 @@
 import Link from "next/link";
-import { ALL_PROGRAMS, CATEGORY_COUNTS, CATEGORIES, filterPrograms, isFeatured } from "@/lib/programs";
+import { getDirectory, CATEGORY_COUNTS, CATEGORIES, filterPrograms } from "@/lib/programs";
 import { ProgramCard } from "@/components/ProgramCard";
 
-export default function HomePage() {
-  const featured = ALL_PROGRAMS.filter(isFeatured).slice(0, 4);
-  const fresh = filterPrograms(ALL_PROGRAMS, { sort: "newest" }).slice(0, 8);
+export const revalidate = 60;
+
+export default async function HomePage() {
+  const { programs, featured } = await getDirectory();
+  const featuredList = programs.filter((p) => featured.has(p.slug)).slice(0, 4);
+  const fresh = filterPrograms(programs, featured, { sort: "newest" }).slice(0, 8);
   const topCats = CATEGORIES
     .map((c) => ({ name: c, count: CATEGORY_COUNTS[c] }))
     .sort((a, b) => b.count - a.count)
@@ -18,8 +21,8 @@ export default function HomePage() {
           Find affiliate programs fast.
         </h1>
         <p className="mx-auto mt-3 max-w-xl text-sm text-ink-500 sm:text-base">
-          Browse {ALL_PROGRAMS.length}+ affiliate programs across {CATEGORIES.length} categories.
-          List your own program for free. Pay to get featured.
+          Browse {programs.length}+ affiliate programs across {CATEGORIES.length} categories.
+          List your own program for $29. Add a featured boost for $50.
         </p>
         <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
           <Link href="/browse" className="btn-accent h-10 px-5">Browse programs</Link>
@@ -35,7 +38,7 @@ export default function HomePage() {
           </Link>
         </div>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {featured.map((p) => <ProgramCard key={p.slug} program={p} />)}
+          {featuredList.map((p) => <ProgramCard key={p.slug} program={p} featured />)}
         </div>
       </section>
 
@@ -62,7 +65,9 @@ export default function HomePage() {
           </Link>
         </div>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {fresh.map((p) => <ProgramCard key={p.slug} program={p} />)}
+          {fresh.map((p) => (
+            <ProgramCard key={p.slug} program={p} featured={featured.has(p.slug)} />
+          ))}
         </div>
       </section>
 
@@ -80,7 +85,7 @@ export default function HomePage() {
           <div className="text-xs font-semibold uppercase tracking-wider text-accent">For companies</div>
           <h3 className="mt-1 text-lg font-bold text-ink-900">Get in front of more affiliates</h3>
           <p className="mt-1 text-sm text-ink-500">
-            Free listing for any program. $50 featured boost pins you to the top of your category
+            $29 for a permanent listing. Add a $50 featured boost to pin to the top of your category
             and the homepage for 30 days.
           </p>
           <Link href="/pricing" className="btn-accent mt-3 h-9">See pricing</Link>

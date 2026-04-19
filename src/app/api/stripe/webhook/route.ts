@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import type Stripe from "stripe";
 import { getStripe } from "@/lib/stripe";
 import { notifyAdmin } from "@/lib/email";
+import { getSubmission, setSubmissionStatus, toggleFeatured } from "@/lib/submissions";
 
 export const runtime = "nodejs";
 
@@ -26,21 +27,38 @@ export async function POST(req: Request) {
   if (event.type === "checkout.session.completed") {
     const session = event.data.object as Stripe.Checkout.Session;
     const meta = session.metadata ?? {};
-    if (meta.kind === "featured_listing") {
-      const amount = ((session.amount_total ?? 0) / 100).toFixed(2);
-      await notifyAdmin(
-        `💰 Featured purchased — ${meta.program_name}`,
-        `
-          <h2>Featured listing paid ($${amount})</h2>
-          <ul>
-            <li>Program: ${meta.program_name}</li>
-            <li>Website: ${meta.website}</li>
-            <li>Contact: ${meta.contact_email}</li>
-            <li>Session: ${session.id}</li>
-          </ul>
-          <p>Add the slug to <code>FEATURED_SLUGS</code> in <code>src/lib/programs.ts</code>.</p>
-        `
-      );
+    const submissionId = meta.submission_id ? String(meta.submission_id) : null;
+    const featuredFlag = String(meta.featured ?? "0") === "1";
+
+    if (meta.kind === "listing" && submissionId) {
+      try {
+        const sub = await getSubmission(submissionId);
+        if (sub) {
+          if (featuredFlag) {
+            // Paid for featured add-on — auto-approve + feature
+            sub.paidFeatured = true;
+            await setSubmissionStatus(sub.id, "approved");
+            await toggleFeatured(sub.slug, true);
+          }
+          // Otherwise leave as pending for admin review.
+        }
+        const amount = ((session.amount_total ?? 0) / 100).toFixed(2);
+        await notifyAdmin(
+          `💰 Payment received — ${meta.program_name ?? submissionId}`,
+          `
+            <h2>Listing paid ($${amount})</h2>
+            <ul>
+              <li>Submission: ${submissionId}</li>
+              <li>Program: ${meta.program_name ?? "—"}</li>
+              <li>Contact: ${meta.contact_email ?? "—"}</li>
+              <li>Featured add-on: ${featuredFlag ? "YES — auto-approved + pinned" : "no — still needs admin approval"}</li>
+              <li>Stripe session: ${session.id}</li>
+            </ul>
+          `
+        );
+      } catch (err) {
+        console.error("[stripe webhook] handler failed:", err);
+      }
     }
   }
 
