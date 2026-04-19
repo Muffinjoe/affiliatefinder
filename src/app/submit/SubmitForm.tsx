@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, ChangeEvent } from "react";
 import { CATEGORIES, COMMISSION_TYPES } from "@/lib/programs";
 
 const TIERS = [
@@ -13,6 +13,30 @@ export function SubmitForm() {
   const [state, setState] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
   const [featuredMonths, setFeaturedMonths] = useState<0 | 1 | 3>(0);
+  const [logoUrl, setLogoUrl] = useState<string>("");
+  const [logoUploading, setLogoUploading] = useState(false);
+  const [logoError, setLogoError] = useState<string | null>(null);
+
+  async function onLogoChange(e: ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setLogoUploading(true);
+    setLogoError(null);
+    try {
+      const fd = new FormData();
+      fd.append("file", file);
+      const res = await fetch("/api/upload", { method: "POST", body: fd });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? "Upload failed");
+      setLogoUrl(data.url);
+    } catch (err) {
+      setLogoError(err instanceof Error ? err.message : "Upload failed");
+    } finally {
+      setLogoUploading(false);
+      // Allow re-uploading the same filename
+      e.target.value = "";
+    }
+  }
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -35,6 +59,7 @@ export function SubmitForm() {
         .map((t) => t.trim())
         .filter(Boolean),
       contact_email: fd.get("contact_email"),
+      logo_url: logoUrl || null,
       featuredMonths,
     };
     try {
@@ -61,6 +86,45 @@ export function SubmitForm() {
 
   return (
     <form onSubmit={onSubmit} className="space-y-4">
+      {/* Logo */}
+      <div>
+        <label className="label">Logo <span className="text-ink-400">(recommended)</span></label>
+        <div className="flex items-center gap-3">
+          <span className="flex h-14 w-14 flex-shrink-0 items-center justify-center overflow-hidden rounded-lg border border-ink-200 bg-white">
+            {logoUrl ? (
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img src={logoUrl} alt="Logo preview" className="h-full w-full object-contain p-1" />
+            ) : (
+              <span className="text-[10px] text-ink-400">no logo</span>
+            )}
+          </span>
+          <div className="flex-1">
+            <label className="btn-outline inline-flex h-9 cursor-pointer text-xs">
+              {logoUploading ? "Uploading…" : logoUrl ? "Replace" : "Upload logo"}
+              <input
+                type="file"
+                accept="image/png,image/jpeg,image/webp,image/svg+xml"
+                className="hidden"
+                onChange={onLogoChange}
+                disabled={logoUploading}
+              />
+            </label>
+            <p className="mt-1 text-[11px] text-ink-500">PNG, JPG, WEBP, or SVG. Up to 4 MB. Square works best.</p>
+            {logoError && <p className="mt-1 text-[11px] text-rose-600">{logoError}</p>}
+          </div>
+        </div>
+        <details className="mt-2">
+          <summary className="cursor-pointer text-[11px] text-ink-500">Or paste a logo URL</summary>
+          <input
+            type="url"
+            value={logoUrl}
+            onChange={(e) => setLogoUrl(e.target.value)}
+            className="input mt-2"
+            placeholder="https://yoursite.com/logo.png"
+          />
+        </details>
+      </div>
+
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
           <label className="label">Program name *</label>
@@ -185,7 +249,7 @@ export function SubmitForm() {
 
       {error && <div className="text-xs text-rose-600">{error}</div>}
 
-      <button type="submit" disabled={state === "loading"} className="btn-accent h-11 w-full">
+      <button type="submit" disabled={state === "loading" || logoUploading} className="btn-accent h-11 w-full">
         {state === "loading" ? "Redirecting to checkout…" : `Continue to payment — $${total}`}
       </button>
       <p className="text-center text-[11px] text-ink-400">

@@ -26,6 +26,7 @@ export type SubmissionInput = {
   description: string;
   tags?: string[];
   contact_email: string;
+  logo_url?: string | null;
   wants_featured?: boolean;
 };
 
@@ -267,6 +268,6 @@ export function submissionToProgram(s: Submission): Program {
     source: "user-submission",
     created_at: s.createdAt,
     updated_at: s.reviewedAt ?? s.createdAt,
-    logo: null,
+    logo: s.logo_url ?? null,
   };
 }

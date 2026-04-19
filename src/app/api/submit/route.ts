@@ -25,6 +25,7 @@ const Body = z.object({
   description: z.string().min(20).max(3000),
   tags: z.array(z.string()).max(10).optional(),
   contact_email: z.string().email(),
+  logo_url: z.string().url().optional().nullable(),
   featuredMonths: z.union([z.literal(0), z.literal(1), z.literal(3)]).optional(),
 });
 
@@ -61,6 +62,7 @@ export async function POST(req: Request) {
       description: d.description,
       tags: d.tags ?? [],
       contact_email: d.contact_email,
+      logo_url: d.logo_url ?? null,
       wants_featured: months > 0,
     });
   } catch (err) {
