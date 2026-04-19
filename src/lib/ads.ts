@@ -131,6 +131,18 @@ const HOUSE_ADS: Ad[] = [
     createdAt: "2026-04-19T00:00:00.000Z",
     activatedAt: "2026-04-19T00:00:00.000Z",
   },
+  {
+    id: "house-makeugc",
+    headline: "MakeUGC",
+    body: "The fastest way to create AI videos.",
+    url: "https://www.makeugc.ai/?ref=redditlink",
+    imageUrl: "/logos/makeugc.jpeg",
+    contact_email: "house@affiliatedeals.co",
+    status: "active",
+    paid: true,
+    createdAt: "2026-04-19T00:00:00.000Z",
+    activatedAt: "2026-04-19T00:00:00.000Z",
+  },
 ];
 
 export async function listActiveAds(): Promise<Ad[]> {

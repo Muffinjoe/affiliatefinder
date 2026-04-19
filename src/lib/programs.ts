@@ -56,7 +56,7 @@ export const COMMISSION_TYPES = ["one-time", "recurring", "tiered", "hybrid"] as
 export type CommissionType = (typeof COMMISSION_TYPES)[number];
 
 // Hardcoded fallback featured set — runtime overrides come from Vercel Blob.
-const STATIC_FEATURED = new Set<string>(["ahrefs", "1password", "algolia", "activecampaign"]);
+const STATIC_FEATURED = new Set<string>(["1password", "algolia", "activecampaign"]);
 
 type DirectoryResult = { programs: Program[]; featured: Set<string> };
 
