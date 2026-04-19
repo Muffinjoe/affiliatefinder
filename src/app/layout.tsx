@@ -26,7 +26,12 @@ function Header() {
     <header className="sticky top-0 z-20 border-b border-ink-200 bg-white/90 backdrop-blur">
       <div className="container-page flex h-14 items-center justify-between">
         <Link href="/" className="flex items-center gap-2 font-bold text-ink-900">
-          <span className="inline-flex h-7 w-7 items-center justify-center rounded-md bg-accent text-white text-sm">AF</span>
+          <span className="inline-flex h-7 w-7 items-center justify-center rounded-md bg-gradient-to-br from-accent-500 to-accent text-white shadow-sm">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <circle cx="10.5" cy="10.5" r="6.5" />
+              <path d="M16 16 L21 21" />
+            </svg>
+          </span>
           <span>AffiliateFinder<span className="text-accent">.co</span></span>
         </Link>
         <nav className="flex items-center gap-1 text-sm">
