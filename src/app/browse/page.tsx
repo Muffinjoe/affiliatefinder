@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getDirectory, filterPrograms, SortKey } from "@/lib/programs";
+import { getViewsCached, thisWeekCounts } from "@/lib/views";
 import { DirectoryControls } from "@/components/DirectoryControls";
 import { ProgramRow } from "@/components/ProgramCard";
 
@@ -10,12 +11,14 @@ type SP = { q?: string; category?: string; commission?: string; sort?: string };
 
 export default async function BrowsePage({ searchParams }: { searchParams: SP }) {
   const sort = (searchParams.sort as SortKey | undefined) ?? "featured";
-  const { programs, featured } = await getDirectory();
+  const [{ programs, featured }, viewsDoc] = await Promise.all([getDirectory(), getViewsCached()]);
+  const week = thisWeekCounts(viewsDoc);
   const results = filterPrograms(programs, featured, {
     q: searchParams.q,
     category: searchParams.category,
     commission: searchParams.commission,
     sort,
+    views: { total: viewsDoc.total, week },
   });
 
   const filterLabel = [
@@ -47,9 +50,21 @@ export default async function BrowsePage({ searchParams }: { searchParams: SP })
             <Link href="/submit" className="text-accent underline">add a new one</Link>.
           </div>
         ) : (
-          results
-            .slice(0, 200)
-            .map((p) => <ProgramRow key={p.slug} program={p} featured={featured.has(p.slug)} />)
+          results.slice(0, 200).map((p) => (
+            <ProgramRow
+              key={p.slug}
+              program={p}
+              featured={featured.has(p.slug)}
+              viewCount={
+                sort === "popular"
+                  ? viewsDoc.total[p.slug]
+                  : sort === "hot"
+                    ? week[p.slug]
+                    : undefined
+              }
+              viewCountLabel={sort === "popular" ? "views" : sort === "hot" ? "this week" : undefined}
+            />
+          ))
         )}
       </div>
 

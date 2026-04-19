@@ -57,7 +57,17 @@ export function ProgramCard({ program, featured = false }: { program: Program; f
   );
 }
 
-export function ProgramRow({ program, featured = false }: { program: Program; featured?: boolean }) {
+export function ProgramRow({
+  program,
+  featured = false,
+  viewCount,
+  viewCountLabel,
+}: {
+  program: Program;
+  featured?: boolean;
+  viewCount?: number;
+  viewCountLabel?: string;
+}) {
   return (
     <Link
       href={`/p/${program.slug}`}
@@ -77,9 +87,16 @@ export function ProgramRow({ program, featured = false }: { program: Program; fe
           {program.short_description || program.description}
         </p>
       </div>
-      <span className="hidden flex-shrink-0 text-xs font-medium text-ink-700 sm:block">
-        {formatCommission(program.commission)}
-      </span>
+      <div className="hidden flex-shrink-0 flex-col items-end gap-0.5 sm:flex">
+        <span className="text-xs font-medium text-ink-700">
+          {formatCommission(program.commission)}
+        </span>
+        {typeof viewCount === "number" && (
+          <span className="text-[10px] text-ink-500">
+            👁 {viewCount.toLocaleString()} {viewCountLabel}
+          </span>
+        )}
+      </div>
     </Link>
   );
 }

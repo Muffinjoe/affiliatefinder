@@ -89,13 +89,22 @@ export function isFeaturedIn(featured: Set<string>, p: Pick<Program, "slug">): b
   return featured.has(p.slug);
 }
 
-export type SortKey = "featured" | "newest" | "name";
+export type SortKey = "featured" | "popular" | "hot" | "newest" | "name";
+
+export const SORT_TABS: { key: SortKey; label: string; hint: string }[] = [
+  { key: "featured", label: "Featured", hint: "Featured programs first" },
+  { key: "popular", label: "Popular", hint: "Most viewed all time" },
+  { key: "hot", label: "Hot", hint: "Most viewed this week" },
+  { key: "newest", label: "Newest", hint: "Recently added" },
+  { key: "name", label: "A–Z", hint: "Alphabetical" },
+];
 
 export type DirectoryFilter = {
   q?: string;
   category?: string;
   commission?: string;
   sort?: SortKey;
+  views?: { total: Record<string, number>; week: Record<string, number> };
 };
 
 export function filterPrograms(
@@ -136,6 +145,17 @@ export function filterPrograms(
     sorted.sort((a, b) => a.name.localeCompare(b.name));
   } else if (sort === "newest") {
     sorted.sort((a, b) => (b.updated_at ?? "").localeCompare(a.updated_at ?? ""));
+  } else if (sort === "popular" || sort === "hot") {
+    const counts = sort === "popular" ? f.views?.total ?? {} : f.views?.week ?? {};
+    sorted.sort((a, b) => {
+      const af = featured.has(a.slug) ? 1 : 0;
+      const bf = featured.has(b.slug) ? 1 : 0;
+      if (af !== bf) return bf - af;
+      const av = counts[a.slug] ?? 0;
+      const bv = counts[b.slug] ?? 0;
+      if (av !== bv) return bv - av;
+      return a.name.localeCompare(b.name);
+    });
   } else {
     sorted.sort((a, b) => {
       const af = featured.has(a.slug) ? 1 : 0;

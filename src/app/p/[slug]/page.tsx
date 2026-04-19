@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { STATIC_PROGRAMS, getDirectory, formatCommission, filterPrograms } from "@/lib/programs";
 import { ProgramCard, Logo } from "@/components/ProgramCard";
+import { TrackPageview } from "@/components/TrackPageview";
 
 type Params = { slug: string };
 
@@ -35,6 +36,7 @@ export default async function ProgramPage({ params }: { params: Params }) {
 
   return (
     <div className="container-page py-8">
+      <TrackPageview slug={p.slug} />
       <nav className="mb-4 text-xs text-ink-500">
         <Link href="/browse" className="hover:text-ink-800">Browse</Link>
         <span className="mx-1.5 text-ink-300">/</span>
