@@ -7,7 +7,7 @@ export const revalidate = 60;
 
 export default async function HomePage() {
   const { programs, featured } = await getDirectory();
-  const featuredList = programs.filter((p) => featured.has(p.slug)).slice(0, 4);
+  const featuredList = programs.filter((p) => featured.has(p.slug)).slice(0, 6);
   const fresh = filterPrograms(programs, featured, { sort: "newest" }).slice(0, 8);
   const topCats = CATEGORIES
     .map((c) => ({ name: c, count: CATEGORY_COUNTS[c] }))
