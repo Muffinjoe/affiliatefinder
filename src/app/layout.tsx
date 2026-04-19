@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 import Link from "next/link";
+
+const UMAMI_WEBSITE_ID = "54733c70-f420-4bd0-96d4-3fd39fc3c473";
 
 export const metadata: Metadata = {
   title: "AffiliateDeals — Find affiliate programs fast",
@@ -13,6 +16,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className="min-h-screen bg-ink-50 text-ink-900">
+        <Script
+          defer
+          src="https://cloud.umami.is/script.js"
+          data-website-id={UMAMI_WEBSITE_ID}
+          strategy="afterInteractive"
+        />
         <Header />
         <main>{children}</main>
         <Footer />
