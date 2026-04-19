@@ -27,9 +27,9 @@ function Header() {
       <div className="container-page flex h-14 items-center justify-between">
         <Link href="/" className="flex items-center gap-2 font-bold text-ink-900">
           <span className="inline-flex h-7 w-7 items-center justify-center rounded-md bg-gradient-to-br from-accent-500 to-accent text-white shadow-sm">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <circle cx="10.5" cy="10.5" r="6.5" />
-              <path d="M16 16 L21 21" />
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M12 4 L18 4 L20 6 L20 12 L12.4 19.6 A1.5 1.5 0 0 1 10.3 19.6 L4.4 13.7 A1.5 1.5 0 0 1 4.4 11.6 Z" />
+              <circle cx="16.5" cy="7.5" r="1.2" fill="currentColor" stroke="none" />
             </svg>
           </span>
           <span>AffiliateDeals<span className="text-accent">.co</span></span>
