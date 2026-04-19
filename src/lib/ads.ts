@@ -81,13 +81,55 @@ export async function listAds(): Promise<Ad[]> {
   return all;
 }
 
+// House ads — always shown alongside paid ads. Edit this list to swap them.
+const HOUSE_ADS: Ad[] = [
+  {
+    id: "house-beehiiv",
+    headline: "Beehiiv",
+    body: "Build an audience and make money from your newsletter.",
+    url: "https://www.beehiiv.com?via=codez",
+    imageUrl: "/logos/beehiiv.png",
+    contact_email: "house@affiliatefinder.co",
+    status: "active",
+    paid: true,
+    createdAt: "2026-04-19T00:00:00.000Z",
+    activatedAt: "2026-04-19T00:00:00.000Z",
+  },
+  {
+    id: "house-ahrefs",
+    headline: "Ahrefs",
+    body: "SEO toolset with the world's largest backlink index.",
+    url: "https://ahrefs.com",
+    imageUrl: "/logos/ahrefs.png",
+    contact_email: "house@affiliatefinder.co",
+    status: "active",
+    paid: true,
+    createdAt: "2026-04-19T00:00:00.000Z",
+    activatedAt: "2026-04-19T00:00:00.000Z",
+  },
+  {
+    id: "house-1password",
+    headline: "1Password",
+    body: "Earn 25% on first-year signups. Trusted by 100k+ companies.",
+    url: "https://1password.com/affiliate",
+    imageUrl: "/logos/1password.png",
+    contact_email: "house@affiliatefinder.co",
+    status: "active",
+    paid: true,
+    createdAt: "2026-04-19T00:00:00.000Z",
+    activatedAt: "2026-04-19T00:00:00.000Z",
+  },
+];
+
 export async function listActiveAds(): Promise<Ad[]> {
   const all = await listAds();
   const now = Date.now();
-  return all
+  const paid = all
     .filter((a) => a.status === "active" && a.paid)
     .filter((a) => !a.untilISO || new Date(a.untilISO).getTime() > now)
     .sort((a, b) => (a.activatedAt ?? "").localeCompare(b.activatedAt ?? ""));
+  // Paid ads come first, then house ads as fillers.
+  return [...paid, ...HOUSE_ADS];
 }
 
 export async function getAd(id: string): Promise<Ad | null> {
