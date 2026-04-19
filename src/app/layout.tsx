@@ -4,6 +4,7 @@ import "./globals.css";
 import Link from "next/link";
 
 const UMAMI_WEBSITE_ID = "54733c70-f420-4bd0-96d4-3fd39fc3c473";
+const GOOGLE_ADS_ID = "AW-17945112356";
 
 export const metadata: Metadata = {
   title: "AffiliateDeals — Find affiliate programs fast",
@@ -22,6 +23,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           data-website-id={UMAMI_WEBSITE_ID}
           strategy="afterInteractive"
         />
+
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-ads" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GOOGLE_ADS_ID}');`}
+        </Script>
+
         <Header />
         <main>{children}</main>
         <Footer />
