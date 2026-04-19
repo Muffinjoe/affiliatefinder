@@ -2,7 +2,8 @@ import { NextResponse } from "next/server";
 import type Stripe from "stripe";
 import { getStripe } from "@/lib/stripe";
 import { notifyAdmin } from "@/lib/email";
-import { getSubmission, setSubmissionStatus, toggleFeatured } from "@/lib/submissions";
+import { getSubmission, setSubmissionStatus, setFeaturedFor } from "@/lib/submissions";
+import { activateAd } from "@/lib/ads";
 
 export const runtime = "nodejs";
 
@@ -27,37 +28,49 @@ export async function POST(req: Request) {
   if (event.type === "checkout.session.completed") {
     const session = event.data.object as Stripe.Checkout.Session;
     const meta = session.metadata ?? {};
-    const submissionId = meta.submission_id ? String(meta.submission_id) : null;
-    const featuredFlag = String(meta.featured ?? "0") === "1";
+    const amount = ((session.amount_total ?? 0) / 100).toFixed(2);
 
-    if (meta.kind === "listing" && submissionId) {
+    if (meta.kind === "listing" && meta.submission_id) {
+      const submissionId = String(meta.submission_id);
+      const months = Math.max(0, Math.min(3, Number(meta.featured_months ?? "0")));
       try {
         const sub = await getSubmission(submissionId);
-        if (sub) {
-          if (featuredFlag) {
-            // Paid for featured add-on — auto-approve + feature
-            sub.paidFeatured = true;
-            await setSubmissionStatus(sub.id, "approved");
-            await toggleFeatured(sub.slug, true);
-          }
-          // Otherwise leave as pending for admin review.
+        if (sub && months > 0) {
+          sub.paidFeatured = true;
+          await setSubmissionStatus(sub.id, "approved");
+          await setFeaturedFor(sub.slug, months);
         }
-        const amount = ((session.amount_total ?? 0) / 100).toFixed(2);
         await notifyAdmin(
           `💰 Payment received — ${meta.program_name ?? submissionId}`,
           `
             <h2>Listing paid ($${amount})</h2>
             <ul>
               <li>Submission: ${submissionId}</li>
-              <li>Program: ${meta.program_name ?? "—"}</li>
-              <li>Contact: ${meta.contact_email ?? "—"}</li>
-              <li>Featured add-on: ${featuredFlag ? "YES — auto-approved + pinned" : "no — still needs admin approval"}</li>
+              <li>Featured: ${months > 0 ? `${months} month${months > 1 ? "s" : ""} — auto-approved + pinned` : "no — needs admin approval"}</li>
               <li>Stripe session: ${session.id}</li>
             </ul>
           `
         );
       } catch (err) {
-        console.error("[stripe webhook] handler failed:", err);
+        console.error("[stripe webhook] listing handler failed:", err);
+      }
+    } else if (meta.kind === "sidebar_ad" && meta.ad_id) {
+      try {
+        const ad = await activateAd(String(meta.ad_id));
+        await notifyAdmin(
+          `📣 Ad paid — ${meta.headline ?? meta.ad_id}`,
+          `
+            <h2>Sidebar ad paid ($${amount})</h2>
+            <ul>
+              <li>Ad: ${meta.ad_id}</li>
+              <li>Headline: ${meta.headline ?? "—"}</li>
+              <li>Contact: ${meta.contact_email ?? "—"}</li>
+              <li>Activated: ${ad?.activatedAt ?? "—"} → expires ${ad?.untilISO ?? "—"}</li>
+            </ul>
+          `
+        );
+      } catch (err) {
+        console.error("[stripe webhook] ad handler failed:", err);
       }
     }
   }

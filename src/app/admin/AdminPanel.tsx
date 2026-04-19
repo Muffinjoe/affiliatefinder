@@ -4,15 +4,18 @@ import { useMemo, useState, useTransition } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { Submission } from "@/lib/submissions";
+import type { Ad } from "@/lib/ads";
 
-type Tab = "pending" | "approved" | "rejected" | "featured";
+type Tab = "pending" | "approved" | "rejected" | "featured" | "ads";
 
 export function AdminPanel({
   submissions,
   featuredSlugs,
+  ads,
 }: {
   submissions: Submission[];
   featuredSlugs: string[];
+  ads: Ad[];
 }) {
   const router = useRouter();
   const [pendingTransition, startTransition] = useTransition();
@@ -21,13 +24,23 @@ export function AdminPanel({
   const [feature, setFeature] = useState<Set<string>>(new Set(featuredSlugs));
   const [newFeatureSlug, setNewFeatureSlug] = useState("");
 
-  const byStatus = useMemo(() => {
-    return {
+  const byStatus = useMemo(
+    () => ({
       pending: submissions.filter((s) => s.status === "pending"),
       approved: submissions.filter((s) => s.status === "approved"),
       rejected: submissions.filter((s) => s.status === "rejected"),
-    };
-  }, [submissions]);
+    }),
+    [submissions]
+  );
+
+  const adsByStatus = useMemo(
+    () => ({
+      pending: ads.filter((a) => a.status === "pending"),
+      active: ads.filter((a) => a.status === "active"),
+      rejected: ads.filter((a) => a.status === "rejected"),
+    }),
+    [ads]
+  );
 
   async function moderate(payload: any) {
     const res = await fetch("/api/admin/moderate", {
@@ -60,13 +73,21 @@ export function AdminPanel({
     startTransition(() => router.refresh());
   }
 
+  async function onAdAction(id: string, action: "ad-approve" | "ad-reject" | "ad-delete") {
+    if (action === "ad-delete" && !confirm("Delete this ad permanently?")) return;
+    setBusyId(id);
+    await moderate({ action, id });
+    setBusyId(null);
+    startTransition(() => router.refresh());
+  }
+
   return (
     <div className="container-page py-8">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold text-ink-900">Admin</h1>
           <p className="text-xs text-ink-500">
-            Pending {byStatus.pending.length} · Approved {byStatus.approved.length} · Rejected {byStatus.rejected.length} · Featured {feature.size}
+            Pending {byStatus.pending.length} · Approved {byStatus.approved.length} · Rejected {byStatus.rejected.length} · Featured {feature.size} · Ads {ads.length}
           </p>
         </div>
         <form action="/api/admin/logout" method="POST">
@@ -74,8 +95,8 @@ export function AdminPanel({
         </form>
       </div>
 
-      <div className="mt-5 flex gap-1 border-b border-ink-200">
-        {(["pending", "approved", "rejected", "featured"] as const).map((t) => (
+      <div className="mt-5 flex flex-wrap gap-1 border-b border-ink-200">
+        {(["pending", "approved", "rejected", "featured", "ads"] as const).map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
@@ -90,7 +111,9 @@ export function AdminPanel({
               (
               {t === "featured"
                 ? feature.size
-                : byStatus[t as Exclude<Tab, "featured">].length}
+                : t === "ads"
+                  ? ads.length
+                  : byStatus[t as Exclude<Tab, "featured" | "ads">].length}
               )
             </span>
           </button>
@@ -99,46 +122,19 @@ export function AdminPanel({
 
       <div className="mt-4">
         {tab === "pending" && (
-          <SubmissionsList
-            items={byStatus.pending}
-            busyId={busyId}
-            pendingTransition={pendingTransition}
-            onAction={onAction}
-            featureSet={feature}
-            onFeatureToggle={onFeatureToggle}
-            emptyLabel="No pending submissions right now."
-          />
+          <SubmissionsList items={byStatus.pending} busyId={busyId} pendingTransition={pendingTransition} onAction={onAction} featureSet={feature} onFeatureToggle={onFeatureToggle} emptyLabel="No pending submissions right now." />
         )}
         {tab === "approved" && (
-          <SubmissionsList
-            items={byStatus.approved}
-            busyId={busyId}
-            pendingTransition={pendingTransition}
-            onAction={onAction}
-            featureSet={feature}
-            onFeatureToggle={onFeatureToggle}
-            emptyLabel="No approved user submissions yet."
-          />
+          <SubmissionsList items={byStatus.approved} busyId={busyId} pendingTransition={pendingTransition} onAction={onAction} featureSet={feature} onFeatureToggle={onFeatureToggle} emptyLabel="No approved user submissions yet." />
         )}
         {tab === "rejected" && (
-          <SubmissionsList
-            items={byStatus.rejected}
-            busyId={busyId}
-            pendingTransition={pendingTransition}
-            onAction={onAction}
-            featureSet={feature}
-            onFeatureToggle={onFeatureToggle}
-            emptyLabel="Nothing rejected."
-          />
+          <SubmissionsList items={byStatus.rejected} busyId={busyId} pendingTransition={pendingTransition} onAction={onAction} featureSet={feature} onFeatureToggle={onFeatureToggle} emptyLabel="Nothing rejected." />
         )}
         {tab === "featured" && (
           <div className="space-y-3">
             <div className="card p-4">
               <div className="text-sm font-semibold text-ink-900">Feature any program by slug</div>
-              <p className="mt-0.5 text-xs text-ink-500">
-                Use this to feature one of the 750 built-in programs (e.g. <code>ahrefs</code>).
-                User submissions can be featured directly from the list above.
-              </p>
+              <p className="mt-0.5 text-xs text-ink-500">Indefinite (admin grant). Paid features expire automatically.</p>
               <div className="mt-3 flex gap-2">
                 <input
                   className="input flex-1"
@@ -164,19 +160,23 @@ export function AdminPanel({
                   <Link href={`/p/${slug}`} className="text-sm font-semibold text-ink-900 hover:text-accent">
                     {slug}
                   </Link>
-                  <button
-                    className="btn-outline h-8 text-xs"
-                    onClick={() => onFeatureToggle(slug, false)}
-                  >
+                  <button className="btn-outline h-8 text-xs" onClick={() => onFeatureToggle(slug, false)}>
                     Unfeature
                   </button>
                 </div>
               ))}
-              {feature.size === 0 && (
-                <div className="card p-6 text-center text-xs text-ink-400">No featured programs.</div>
-              )}
+              {feature.size === 0 && <div className="card p-6 text-center text-xs text-ink-400">No featured programs.</div>}
             </div>
           </div>
+        )}
+        {tab === "ads" && (
+          <AdsList
+            items={ads}
+            adsByStatus={adsByStatus}
+            busyId={busyId}
+            pendingTransition={pendingTransition}
+            onAdAction={onAdAction}
+          />
         )}
       </div>
     </div>
@@ -210,29 +210,15 @@ function SubmissionsList({
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-center gap-2">
-                <Link href={`/p/${s.slug}`} className="text-sm font-semibold text-ink-900 hover:text-accent">
-                  {s.name}
-                </Link>
+                <Link href={`/p/${s.slug}`} className="text-sm font-semibold text-ink-900 hover:text-accent">{s.name}</Link>
                 <span className="pill">{s.category}</span>
                 {s.commission_type && <span className="pill">{s.commission_type}</span>}
                 {s.paidFeatured && <span className="pill-accent">Paid · Featured</span>}
-                {s.status === "approved" && featureSet.has(s.slug) && !s.paidFeatured && (
-                  <span className="pill-accent">Featured</span>
-                )}
+                {s.status === "approved" && featureSet.has(s.slug) && !s.paidFeatured && <span className="pill-accent">Featured</span>}
               </div>
               <p className="mt-1 text-xs text-ink-500">{s.short_description}</p>
               <div className="mt-1 text-[11px] text-ink-400">
-                <span>{s.contact_email}</span>
-                {" · "}
-                <a href={s.url} target="_blank" rel="noreferrer" className="underline">
-                  website
-                </a>
-                {" · "}
-                <a href={s.signup_url} target="_blank" rel="noreferrer" className="underline">
-                  signup
-                </a>
-                {" · "}
-                <span>{new Date(s.createdAt).toLocaleString()}</span>
+                <span>{s.contact_email}</span> · <a href={s.url} target="_blank" rel="noreferrer" className="underline">website</a> · <a href={s.signup_url} target="_blank" rel="noreferrer" className="underline">signup</a> · {new Date(s.createdAt).toLocaleString()}
               </div>
               <details className="mt-2">
                 <summary className="cursor-pointer text-[11px] text-ink-500">Details</summary>
@@ -248,54 +234,94 @@ function SubmissionsList({
             <div className="flex flex-wrap gap-2">
               {s.status === "pending" && (
                 <>
-                  <button
-                    className="btn-accent h-9 text-xs"
-                    disabled={busyId === s.id || pendingTransition}
-                    onClick={() => onAction(s.id, "approve")}
-                  >
-                    Approve
-                  </button>
-                  <button
-                    className="btn-outline h-9 text-xs"
-                    disabled={busyId === s.id || pendingTransition}
-                    onClick={() => onAction(s.id, "reject")}
-                  >
-                    Reject
-                  </button>
+                  <button className="btn-accent h-9 text-xs" disabled={busyId === s.id || pendingTransition} onClick={() => onAction(s.id, "approve")}>Approve</button>
+                  <button className="btn-outline h-9 text-xs" disabled={busyId === s.id || pendingTransition} onClick={() => onAction(s.id, "reject")}>Reject</button>
                 </>
               )}
               {s.status === "approved" && (
                 <>
-                  <button
-                    className="btn-outline h-9 text-xs"
-                    onClick={() => onFeatureToggle(s.slug, !featureSet.has(s.slug))}
-                  >
-                    {featureSet.has(s.slug) ? "Unfeature" : "Feature"}
-                  </button>
-                  <button
-                    className="btn-ghost h-9 text-xs"
-                    onClick={() => onAction(s.id, "reject")}
-                  >
-                    Unpublish
-                  </button>
+                  <button className="btn-outline h-9 text-xs" onClick={() => onFeatureToggle(s.slug, !featureSet.has(s.slug))}>{featureSet.has(s.slug) ? "Unfeature" : "Feature"}</button>
+                  <button className="btn-ghost h-9 text-xs" onClick={() => onAction(s.id, "reject")}>Unpublish</button>
                 </>
               )}
               {s.status === "rejected" && (
-                <button
-                  className="btn-outline h-9 text-xs"
-                  onClick={() => onAction(s.id, "approve")}
-                >
-                  Re-approve
-                </button>
+                <button className="btn-outline h-9 text-xs" onClick={() => onAction(s.id, "approve")}>Re-approve</button>
               )}
-              <button
-                className="btn-ghost h-9 text-xs text-rose-700"
-                onClick={() => onAction(s.id, "delete")}
-              >
-                Delete
-              </button>
+              <button className="btn-ghost h-9 text-xs text-rose-700" onClick={() => onAction(s.id, "delete")}>Delete</button>
             </div>
           </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function AdsList({
+  items,
+  adsByStatus,
+  busyId,
+  pendingTransition,
+  onAdAction,
+}: {
+  items: Ad[];
+  adsByStatus: { pending: Ad[]; active: Ad[]; rejected: Ad[] };
+  busyId: string | null;
+  pendingTransition: boolean;
+  onAdAction: (id: string, action: "ad-approve" | "ad-reject" | "ad-delete") => void;
+}) {
+  if (items.length === 0) {
+    return <div className="card p-6 text-center text-xs text-ink-400">No ads yet.</div>;
+  }
+  const groups: { label: string; ads: Ad[] }[] = [
+    { label: `Pending payment / approval (${adsByStatus.pending.length})`, ads: adsByStatus.pending },
+    { label: `Active (${adsByStatus.active.length})`, ads: adsByStatus.active },
+    { label: `Rejected (${adsByStatus.rejected.length})`, ads: adsByStatus.rejected },
+  ];
+  return (
+    <div className="space-y-6">
+      {groups.map((g) => (
+        <div key={g.label}>
+          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider text-ink-500">{g.label}</h3>
+          {g.ads.length === 0 ? (
+            <div className="card p-4 text-center text-xs text-ink-400">none</div>
+          ) : (
+            <div className="space-y-2">
+              {g.ads.map((ad) => (
+                <div key={ad.id} className="card flex flex-wrap items-start gap-3 p-3">
+                  {ad.imageUrl ? (
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img src={ad.imageUrl} alt="" className="h-16 w-24 flex-shrink-0 rounded object-cover" />
+                  ) : (
+                    <div className="flex h-16 w-24 flex-shrink-0 items-center justify-center rounded bg-ink-100 text-[10px] text-ink-400">no image</div>
+                  )}
+                  <div className="min-w-0 flex-1">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-sm font-semibold text-ink-900">{ad.headline}</span>
+                      <span className="pill">{ad.status}</span>
+                      {ad.paid && <span className="pill-accent">Paid</span>}
+                    </div>
+                    <p className="mt-1 text-xs text-ink-600">{ad.body}</p>
+                    <div className="mt-1 text-[11px] text-ink-400">
+                      <a href={ad.url} target="_blank" rel="noreferrer" className="underline">{ad.url}</a>
+                      {" · "}{ad.contact_email}{" · "}submitted {new Date(ad.createdAt).toLocaleString()}
+                      {ad.untilISO && ` · expires ${new Date(ad.untilISO).toLocaleString()}`}
+                    </div>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {ad.status !== "active" && (
+                      <button className="btn-accent h-9 text-xs" disabled={busyId === ad.id || pendingTransition} onClick={() => onAdAction(ad.id, "ad-approve")}>
+                        {ad.paid ? "Reactivate" : "Approve & activate"}
+                      </button>
+                    )}
+                    {ad.status !== "rejected" && (
+                      <button className="btn-outline h-9 text-xs" disabled={busyId === ad.id || pendingTransition} onClick={() => onAdAction(ad.id, "ad-reject")}>Reject</button>
+                    )}
+                    <button className="btn-ghost h-9 text-xs text-rose-700" disabled={busyId === ad.id || pendingTransition} onClick={() => onAdAction(ad.id, "ad-delete")}>Delete</button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       ))}
     </div>

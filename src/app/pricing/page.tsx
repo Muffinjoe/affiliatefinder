@@ -12,7 +12,7 @@ export default function PricingPage({ searchParams }: { searchParams: { slug?: s
           Simple, one-time pricing.
         </h1>
         <p className="mx-auto mt-3 max-w-xl text-sm text-ink-500">
-          Pay once, get found forever. No subscriptions, no listing renewals.
+          Pay once, get found forever. Featured boosts and ads are flat-fee — no subscriptions.
         </p>
       </div>
 
@@ -32,8 +32,8 @@ export default function PricingPage({ searchParams }: { searchParams: { slug?: s
         />
         <Plan
           name="Listing + Featured"
-          price="$70"
-          cadence="$20 listing + $50 featured (30 days)"
+          price="from $70"
+          cadence="$20 listing + featured boost"
           highlighted
           badge="Most popular"
           blurb="Maximum visibility from day one."
@@ -44,18 +44,37 @@ export default function PricingPage({ searchParams }: { searchParams: { slug?: s
             "Featured badge on your listing",
             "Skip the review queue — goes live instantly",
           ]}
-          cta={{ href: `/submit${slug ? `?slug=${slug}` : ""}`, label: "Submit + feature — $70" }}
+          cta={{ href: `/submit${slug ? `?slug=${slug}` : ""}`, label: "Submit + feature" }}
         />
       </div>
 
-      <div className="mt-4 rounded-lg border border-ink-200 bg-white p-5 text-center text-sm text-ink-600">
-        Already listed? Boost any program for just $50/month featured.{" "}
-        <a
-          href="mailto:joe@primeeight.co.uk?subject=AffiliateFinder featured upgrade"
-          className="font-medium text-accent hover:underline"
-        >
-          Email us →
-        </a>
+      <div className="mt-10">
+        <h2 className="text-center text-lg font-bold text-ink-900">Featured boost — pick a duration</h2>
+        <p className="text-center text-xs text-ink-500">Discounts for 2- and 3-month plans.</p>
+        <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
+          <TierCard months={1} price={50} per="$50/mo" save={null} />
+          <TierCard months={2} price={89} per="$44.50/mo" save="Save $11" highlight />
+          <TierCard months={3} price={119} per="$39.67/mo" save="Save $31" />
+        </div>
+      </div>
+
+      <div className="mt-10 card-accent p-6">
+        <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
+          <div>
+            <div className="text-xs font-semibold uppercase tracking-wider text-accent">Sidebar advertising</div>
+            <h2 className="mt-1 text-lg font-bold text-ink-900">Sponsor card on home + browse</h2>
+            <p className="mt-1 text-sm text-ink-600">
+              Image, headline, body, and a click-through link in the sidebar — anywhere your audience looks.
+            </p>
+          </div>
+          <div className="text-right">
+            <div className="text-3xl font-bold text-ink-900">$100</div>
+            <div className="text-[11px] text-ink-500">30 days · flat</div>
+          </div>
+        </div>
+        <Link href="/advertise" className="btn-accent mt-4 h-10 px-5">
+          Buy a sidebar ad
+        </Link>
       </div>
 
       <div className="mt-12 rounded-xl border border-ink-200 bg-white p-6">
@@ -64,21 +83,20 @@ export default function PricingPage({ searchParams }: { searchParams: { slug?: s
           <Faq q="Is the $20 one-time?">
             Yes. Pay once, stay in the directory. No subscription, no annual renewal.
           </Faq>
+          <Faq q="Do featured listings auto-renew?">
+            No. They run for the months you bought, then drop back to a regular listing. Buy more any time.
+          </Faq>
           <Faq q="How fast does a featured listing go live?">
-            Immediately after payment. You'll get a receipt and a link to your live page.
+            Immediately after payment. Receipt and live link sent by email.
           </Faq>
-          <Faq q="What if I want to test first?">
-            Every listing is reviewed before publishing — if we reject, you'll get a refund.
-            Reach out any time.
-          </Faq>
-          <Faq q="Can I upgrade to featured later?">
-            Yep — email joe@primeeight.co.uk and we'll invoice the $50 boost for your existing listing.
+          <Faq q="What about sidebar ads?">
+            Quick manual review (under 4 hours), then runs for 30 days. Full refund if rejected.
           </Faq>
           <Faq q="Can I claim an existing listing?">
             Submit with the same URL, email us from the domain, and we'll transfer ownership — no re-charge.
           </Faq>
-          <Faq q="Do you offer refunds?">
-            Full refund if we reject your listing. After approval, all sales final.
+          <Faq q="Refunds?">
+            Full refund if we reject your listing or ad. After approval, all sales final.
           </Faq>
         </div>
       </div>
@@ -126,6 +144,29 @@ function Plan({
       <Link href={cta.href} className={`mt-5 h-10 ${highlighted ? "btn-accent" : "btn-outline"}`}>
         {cta.label}
       </Link>
+    </div>
+  );
+}
+
+function TierCard({
+  months,
+  price,
+  per,
+  save,
+  highlight,
+}: {
+  months: number;
+  price: number;
+  per: string;
+  save: string | null;
+  highlight?: boolean;
+}) {
+  return (
+    <div className={`card p-5 ${highlight ? "ring-1 ring-accent/20" : ""}`}>
+      <div className="text-sm font-semibold text-ink-900">{months} month{months > 1 ? "s" : ""}</div>
+      <div className="mt-2 text-3xl font-bold text-ink-900">${price}</div>
+      <div className="text-xs text-ink-500">{per}</div>
+      {save && <div className="mt-1 text-xs font-semibold text-accent">{save}</div>}
     </div>
   );
 }

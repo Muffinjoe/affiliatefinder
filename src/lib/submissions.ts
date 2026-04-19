@@ -140,33 +140,61 @@ export async function deleteSubmission(id: string): Promise<void> {
   await del(`${SUBMISSIONS_PREFIX}${id}.json`, { token });
 }
 
-// --- Featured slugs (overrides) ----------------------------------------------
+// --- Featured slugs (overrides, with optional expiry) -----------------------
 
-type FeaturedDoc = { slugs: string[]; updatedAt: string };
+type FeaturedEntry = { slug: string; untilISO: string | null };
+type FeaturedDoc = {
+  entries?: FeaturedEntry[];
+  slugs?: string[]; // legacy format — treated as never-expires
+  updatedAt: string;
+};
 
-export async function getFeaturedSlugs(): Promise<Set<string>> {
+async function fetchFeaturedDoc(): Promise<FeaturedDoc> {
   const token = blobToken();
-  if (!token) return new Set();
+  if (!token) return { entries: [], updatedAt: "" };
   try {
     const page = await list({ prefix: FEATURED_PATH, token });
     const blob = page.blobs.find((b) => b.pathname === FEATURED_PATH);
-    if (!blob) return new Set();
+    if (!blob) return { entries: [], updatedAt: "" };
     const res = await fetch(blob.url, { cache: "no-store" });
-    if (!res.ok) return new Set();
-    const doc = (await res.json()) as FeaturedDoc;
-    return new Set(doc.slugs ?? []);
+    if (!res.ok) return { entries: [], updatedAt: "" };
+    return (await res.json()) as FeaturedDoc;
   } catch (err) {
     console.error("[featured] read failed:", err);
-    return new Set();
+    return { entries: [], updatedAt: "" };
   }
 }
 
-export async function toggleFeatured(slug: string, on: boolean): Promise<void> {
+function liveEntries(doc: FeaturedDoc): FeaturedEntry[] {
+  const now = Date.now();
+  const fromEntries = (doc.entries ?? []).filter(
+    (e) => !e.untilISO || new Date(e.untilISO).getTime() > now
+  );
+  // Migrate legacy `slugs` array on read.
+  const fromLegacy = (doc.slugs ?? []).map<FeaturedEntry>((s) => ({ slug: s, untilISO: null }));
+  const seen = new Set<string>();
+  const out: FeaturedEntry[] = [];
+  for (const e of [...fromEntries, ...fromLegacy]) {
+    if (seen.has(e.slug)) continue;
+    seen.add(e.slug);
+    out.push(e);
+  }
+  return out;
+}
+
+export async function getFeaturedSlugs(): Promise<Set<string>> {
+  const doc = await fetchFeaturedDoc();
+  return new Set(liveEntries(doc).map((e) => e.slug));
+}
+
+export async function getFeaturedEntries(): Promise<FeaturedEntry[]> {
+  const doc = await fetchFeaturedDoc();
+  return liveEntries(doc);
+}
+
+async function writeFeaturedDoc(entries: FeaturedEntry[]): Promise<void> {
   const token = blobToken();
-  const current = await getFeaturedSlugs();
-  if (on) current.add(slug);
-  else current.delete(slug);
-  const doc: FeaturedDoc = { slugs: [...current], updatedAt: new Date().toISOString() };
+  const doc: FeaturedDoc = { entries, updatedAt: new Date().toISOString() };
   await put(FEATURED_PATH, JSON.stringify(doc), {
     access: "public",
     contentType: "application/json",
@@ -175,6 +203,22 @@ export async function toggleFeatured(slug: string, on: boolean): Promise<void> {
     token,
     cacheControlMaxAge: 0,
   });
+}
+
+export async function setFeaturedFor(slug: string, months: number): Promise<void> {
+  const doc = await fetchFeaturedDoc();
+  const entries = liveEntries(doc).filter((e) => e.slug !== slug);
+  const until = new Date();
+  until.setUTCDate(until.getUTCDate() + months * 30);
+  entries.push({ slug, untilISO: until.toISOString() });
+  await writeFeaturedDoc(entries);
+}
+
+export async function toggleFeatured(slug: string, on: boolean): Promise<void> {
+  const doc = await fetchFeaturedDoc();
+  const entries = liveEntries(doc).filter((e) => e.slug !== slug);
+  if (on) entries.push({ slug, untilISO: null }); // admin toggle = indefinite
+  await writeFeaturedDoc(entries);
 }
 
 // --- Convert Submission → Program shape for the directory --------------------

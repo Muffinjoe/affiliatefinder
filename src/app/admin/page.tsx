@@ -1,5 +1,6 @@
 import { isAdminAuthed } from "@/lib/auth";
 import { listAllSubmissions, getFeaturedSlugs } from "@/lib/submissions";
+import { listAds } from "@/lib/ads";
 import { AdminPanel } from "./AdminPanel";
 
 export const dynamic = "force-dynamic";
@@ -33,7 +34,11 @@ export default async function AdminPage({ searchParams }: { searchParams: { erro
     );
   }
 
-  const [subs, featured] = await Promise.all([listAllSubmissions(), getFeaturedSlugs()]);
+  const [subs, featured, ads] = await Promise.all([
+    listAllSubmissions(),
+    getFeaturedSlugs(),
+    listAds(),
+  ]);
 
-  return <AdminPanel submissions={subs} featuredSlugs={[...featured]} />;
+  return <AdminPanel submissions={subs} featuredSlugs={[...featured]} ads={ads} />;
 }

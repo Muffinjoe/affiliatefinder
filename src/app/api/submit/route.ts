@@ -6,7 +6,7 @@ import { notifyAdmin } from "@/lib/email";
 import {
   getStripe,
   getSiteUrl,
-  FEATURED_PRICE_CENTS,
+  FEATURED_TIERS,
   LISTING_PRICE_CENTS,
 } from "@/lib/stripe";
 
@@ -25,7 +25,7 @@ const Body = z.object({
   description: z.string().min(20).max(3000),
   tags: z.array(z.string()).max(10).optional(),
   contact_email: z.string().email(),
-  wantsFeatured: z.boolean().optional(),
+  featuredMonths: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3)]).optional(),
 });
 
 export async function POST(req: Request) {
@@ -40,6 +40,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Invalid input", details: parsed.error.flatten() }, { status: 400 });
   }
   const d = parsed.data;
+  const months = (d.featuredMonths ?? 0) as 0 | 1 | 2 | 3;
 
   if (!process.env.STRIPE_SECRET_KEY) {
     return NextResponse.json({ error: "Checkout unavailable" }, { status: 500 });
@@ -60,7 +61,7 @@ export async function POST(req: Request) {
       description: d.description,
       tags: d.tags ?? [],
       contact_email: d.contact_email,
-      wants_featured: !!d.wantsFeatured,
+      wants_featured: months > 0,
     });
   } catch (err) {
     console.error("[submit] blob write failed:", err);
@@ -81,15 +82,16 @@ export async function POST(req: Request) {
       },
     },
   ];
-  if (d.wantsFeatured) {
+  if (months > 0 && (months === 1 || months === 2 || months === 3)) {
+    const tier = FEATURED_TIERS[months];
     lineItems.push({
       quantity: 1,
       price_data: {
         currency: "usd",
-        unit_amount: FEATURED_PRICE_CENTS,
+        unit_amount: tier.cents,
         product_data: {
-          name: `Featured boost — ${d.name}`,
-          description: "30-day featured placement (homepage + category top).",
+          name: `Featured boost (${months} month${months > 1 ? "s" : ""}) — ${d.name}`,
+          description: `${months}-month featured placement on AffiliateFinder.co.`,
         },
       },
     });
@@ -107,7 +109,7 @@ export async function POST(req: Request) {
       metadata: {
         kind: "listing",
         submission_id: submission.id,
-        featured: d.wantsFeatured ? "1" : "0",
+        featured_months: String(months),
         program_name: d.name,
         contact_email: d.contact_email,
         website: d.url,
@@ -121,7 +123,7 @@ export async function POST(req: Request) {
 
   const adminUrl = `${siteUrl}/admin`;
   await notifyAdmin(
-    `[AffiliateFinder] ${d.name} submitted${d.wantsFeatured ? " (+Featured)" : ""}`,
+    `[AffiliateFinder] ${d.name} submitted${months > 0 ? ` (+${months}mo Featured)` : ""}`,
     `
       <h2>New submission (awaiting payment)</h2>
       <p><strong>${escapeHtml(d.name)}</strong> — ${escapeHtml(d.category)} · ${escapeHtml(d.commission_type ?? "—")}</p>
@@ -131,7 +133,7 @@ export async function POST(req: Request) {
         <li>Signup: <a href="${d.signup_url}">${d.signup_url}</a></li>
         <li>Commission: ${escapeHtml(d.commission)}</li>
         <li>Contact: ${escapeHtml(d.contact_email)}</li>
-        <li>Bundle: $${(LISTING_PRICE_CENTS / 100) + (d.wantsFeatured ? FEATURED_PRICE_CENTS / 100 : 0)} ${d.wantsFeatured ? "(listing + featured)" : "(listing)"}</li>
+        <li>Featured: ${months > 0 && (months === 1 || months === 2 || months === 3) ? `${months} month${months > 1 ? "s" : ""} ($${FEATURED_TIERS[months].cents / 100})` : "no"}</li>
       </ul>
       <p><a href="${adminUrl}">→ Review in admin</a></p>
     `

@@ -38,6 +38,7 @@ function Header() {
           <Link href="/browse" className="btn-ghost">Browse</Link>
           <Link href="/categories" className="btn-ghost hidden sm:inline-flex">Categories</Link>
           <Link href="/pricing" className="btn-ghost hidden sm:inline-flex">Pricing</Link>
+          <Link href="/advertise" className="btn-ghost hidden md:inline-flex">Advertise</Link>
           <Link href="/submit" className="btn-accent ml-1">Add program</Link>
         </nav>
       </div>
@@ -50,10 +51,11 @@ function Footer() {
     <footer className="mt-16 border-t border-ink-200 bg-white">
       <div className="container-page flex flex-col items-start justify-between gap-2 py-6 text-xs text-ink-500 sm:flex-row sm:items-center">
         <div>© {new Date().getFullYear()} AffiliateFinder.co</div>
-        <div className="flex gap-4">
+        <div className="flex flex-wrap gap-4">
           <Link href="/browse" className="hover:text-ink-800">Browse</Link>
           <Link href="/categories" className="hover:text-ink-800">Categories</Link>
           <Link href="/submit" className="hover:text-ink-800">Add program</Link>
+          <Link href="/advertise" className="hover:text-ink-800">Advertise</Link>
           <Link href="/pricing" className="hover:text-ink-800">Pricing</Link>
         </div>
       </div>

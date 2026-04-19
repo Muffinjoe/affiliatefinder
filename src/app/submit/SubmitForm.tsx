@@ -3,10 +3,17 @@
 import { useState, FormEvent } from "react";
 import { CATEGORIES, COMMISSION_TYPES } from "@/lib/programs";
 
+const TIERS = [
+  { months: 0, price: 0, label: "No featured", per: "", save: "" },
+  { months: 1, price: 50, label: "1 month", per: "$50/mo", save: "" },
+  { months: 2, price: 89, label: "2 months", per: "$44.50/mo", save: "Save $11" },
+  { months: 3, price: 119, label: "3 months", per: "$39.67/mo", save: "Save $31" },
+] as const;
+
 export function SubmitForm() {
   const [state, setState] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
-  const [wantsFeatured, setWantsFeatured] = useState(false);
+  const [featuredMonths, setFeaturedMonths] = useState<0 | 1 | 2 | 3>(0);
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -29,7 +36,7 @@ export function SubmitForm() {
         .map((t) => t.trim())
         .filter(Boolean),
       contact_email: fd.get("contact_email"),
-      wantsFeatured,
+      featuredMonths,
     };
     try {
       const res = await fetch("/api/submit", {
@@ -50,7 +57,8 @@ export function SubmitForm() {
     }
   }
 
-  const total = wantsFeatured ? 70 : 20;
+  const tier = TIERS.find((t) => t.months === featuredMonths)!;
+  const total = 20 + tier.price;
 
   return (
     <form onSubmit={onSubmit} className="space-y-4">
@@ -124,7 +132,6 @@ export function SubmitForm() {
       <div>
         <label className="label">Your email *</label>
         <input name="contact_email" required type="email" className="input" placeholder="you@acme.com" />
-        <p className="mt-1 text-[11px] text-ink-500">Receipt and approval notifications go here.</p>
       </div>
 
       <div className="rounded-lg border border-ink-200 bg-ink-50 p-4 text-xs text-ink-700">
@@ -137,34 +144,44 @@ export function SubmitForm() {
         </div>
       </div>
 
-      <div className={`rounded-lg border p-5 transition-colors ${wantsFeatured ? "border-accent bg-accent-50" : "border-ink-200 bg-gradient-to-br from-emerald-50 to-white"}`}>
+      <div className={`rounded-lg border p-5 transition-colors ${featuredMonths > 0 ? "border-accent bg-accent-50" : "border-ink-200 bg-gradient-to-br from-emerald-50 to-white"}`}>
         <div className="flex items-start justify-between gap-4">
           <div>
-            <div className="text-[10px] font-semibold uppercase tracking-wider text-accent">Featured boost add-on</div>
+            <div className="text-[10px] font-semibold uppercase tracking-wider text-accent">Featured boost — pick a duration</div>
             <h3 className="mt-0.5 text-base font-bold text-ink-900">Pin your program to the top</h3>
-            <p className="mt-1 text-xs text-ink-600">Homepage feature + category-top placement for 30 days. Skip the review queue.</p>
-          </div>
-          <div className="text-right">
-            <div className="text-2xl font-bold text-ink-900">+$50<span className="ml-1 text-xs font-medium text-ink-500">one-time</span></div>
-            <div className="text-[10px] text-ink-400">30-day placement</div>
+            <p className="mt-1 text-xs text-ink-600">Homepage feature + category-top placement. Auto-approved, goes live instantly.</p>
           </div>
         </div>
-        <ul className="mt-3 space-y-1 text-xs text-ink-700">
-          <li className="flex gap-2"><span className="text-accent">✓</span> Pinned to top of directory + homepage</li>
-          <li className="flex gap-2"><span className="text-accent">✓</span> Top of its category</li>
-          <li className="flex gap-2"><span className="text-accent">✓</span> Auto-approved, goes live instantly</li>
-          <li className="flex gap-2"><span className="text-accent">✓</span> Featured badge on your listing</li>
-        </ul>
-        <label className={`mt-4 flex cursor-pointer items-center gap-3 rounded-md border bg-white px-4 py-3 transition-colors ${wantsFeatured ? "border-accent" : "border-ink-200 hover:border-ink-400"}`}>
-          <input
-            type="checkbox"
-            checked={wantsFeatured}
-            onChange={(e) => setWantsFeatured(e.target.checked)}
-            className="h-4 w-4 rounded border-ink-300 text-accent focus:ring-accent"
-          />
-          <span className="flex-1 text-sm font-semibold text-ink-900">Add featured boost for $50</span>
-          {wantsFeatured && <span className="text-[11px] font-medium text-accent">Selected</span>}
-        </label>
+        <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
+          {TIERS.map((t) => {
+            const active = t.months === featuredMonths;
+            return (
+              <button
+                key={t.months}
+                type="button"
+                onClick={() => setFeaturedMonths(t.months as 0 | 1 | 2 | 3)}
+                className={`rounded-lg border p-3 text-left transition-colors ${
+                  active ? "border-accent bg-white shadow-sm ring-1 ring-accent/20" : "border-ink-200 bg-white hover:border-ink-400"
+                }`}
+              >
+                <div className="text-xs font-semibold text-ink-900">{t.label}</div>
+                <div className="mt-1 text-lg font-bold text-ink-900">
+                  {t.price === 0 ? "—" : `$${t.price}`}
+                </div>
+                {t.per && <div className="text-[10px] text-ink-500">{t.per}</div>}
+                {t.save && <div className="text-[10px] font-semibold text-accent">{t.save}</div>}
+              </button>
+            );
+          })}
+        </div>
+        {featuredMonths > 0 && (
+          <ul className="mt-4 space-y-1 text-xs text-ink-700">
+            <li className="flex gap-2"><span className="text-accent">✓</span> Pinned to top of directory + homepage for {featuredMonths} month{featuredMonths > 1 ? "s" : ""}</li>
+            <li className="flex gap-2"><span className="text-accent">✓</span> Top of its category</li>
+            <li className="flex gap-2"><span className="text-accent">✓</span> Auto-approved, goes live instantly</li>
+            <li className="flex gap-2"><span className="text-accent">✓</span> Featured badge on your listing</li>
+          </ul>
+        )}
       </div>
 
       {error && <div className="text-xs text-rose-600">{error}</div>}

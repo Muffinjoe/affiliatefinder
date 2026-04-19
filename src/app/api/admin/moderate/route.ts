@@ -4,8 +4,10 @@ import {
   deleteSubmission,
   setSubmissionStatus,
   toggleFeatured,
+  setFeaturedFor,
   getSubmission,
 } from "@/lib/submissions";
+import { setAdStatus, deleteAd, activateAd } from "@/lib/ads";
 import { notifyAdmin } from "@/lib/email";
 import { Resend } from "resend";
 
@@ -21,7 +23,7 @@ export async function POST(req: Request) {
   } catch {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
-  const { action, id, slug, on } = body ?? {};
+  const { action, id, slug, on, months } = body ?? {};
 
   try {
     if (action === "approve" && id) {
@@ -39,7 +41,23 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: true });
     }
     if (action === "feature" && slug) {
-      await toggleFeatured(slug, !!on);
+      if (typeof months === "number" && months > 0) {
+        await setFeaturedFor(slug, Math.min(12, Math.max(1, months)));
+      } else {
+        await toggleFeatured(slug, !!on);
+      }
+      return NextResponse.json({ ok: true });
+    }
+    if (action === "ad-approve" && id) {
+      await activateAd(String(id));
+      return NextResponse.json({ ok: true });
+    }
+    if (action === "ad-reject" && id) {
+      await setAdStatus(String(id), "rejected");
+      return NextResponse.json({ ok: true });
+    }
+    if (action === "ad-delete" && id) {
+      await deleteAd(String(id));
       return NextResponse.json({ ok: true });
     }
     if (action === "reveal" && id) {
