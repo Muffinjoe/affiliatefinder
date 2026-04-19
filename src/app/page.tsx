@@ -22,7 +22,7 @@ export default async function HomePage() {
         </h1>
         <p className="mx-auto mt-3 max-w-xl text-sm text-ink-500 sm:text-base">
           Browse {programs.length}+ affiliate programs across {CATEGORIES.length} categories.
-          List your own program for $29. Add a featured boost for $50.
+          List your own program for $20. Add a featured boost for $50.
         </p>
         <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
           <Link href="/browse" className="btn-accent h-10 px-5">Browse programs</Link>
@@ -85,7 +85,7 @@ export default async function HomePage() {
           <div className="text-xs font-semibold uppercase tracking-wider text-accent">For companies</div>
           <h3 className="mt-1 text-lg font-bold text-ink-900">Get in front of more affiliates</h3>
           <p className="mt-1 text-sm text-ink-500">
-            $29 for a permanent listing. Add a $50 featured boost to pin to the top of your category
+            $20 for a permanent listing. Add a $50 featured boost to pin to the top of your category
             and the homepage for 30 days.
           </p>
           <Link href="/pricing" className="btn-accent mt-3 h-9">See pricing</Link>

@@ -18,7 +18,7 @@
     @apply inline-flex items-center justify-center rounded-md px-3.5 h-9 text-sm font-semibold transition-colors;
   }
   .btn-accent {
-    @apply btn bg-accent text-white hover:bg-accent-500 disabled:opacity-50;
+    @apply btn bg-gradient-to-br from-accent-500 to-accent text-white shadow-sm hover:from-accent hover:to-accent-600 hover:shadow disabled:opacity-50;
   }
   .btn-outline {
     @apply btn border border-ink-300 bg-white text-ink-800 hover:bg-ink-50;
@@ -36,6 +36,10 @@
     @apply inline-flex items-center rounded-full bg-ink-100 px-2 py-0.5 text-[11px] font-medium text-ink-700;
   }
   .pill-accent {
-    @apply inline-flex items-center rounded-full bg-accent-50 px-2 py-0.5 text-[11px] font-semibold text-accent-600;
+    @apply inline-flex items-center rounded-full bg-gradient-to-br from-accent-50 to-emerald-100 px-2 py-0.5 text-[11px] font-semibold text-accent-600 ring-1 ring-accent-500/20;
+  }
+
+  .card-accent {
+    @apply card border-accent-500 bg-gradient-to-br from-white via-accent-50/40 to-accent-50 shadow-sm ring-1 ring-accent-500/15;
   }
 }

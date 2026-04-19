@@ -31,8 +31,8 @@ export function ProgramCard({ program, featured = false }: { program: Program; f
   return (
     <Link
       href={`/p/${program.slug}`}
-      className={`card group flex flex-col gap-2 p-4 transition-colors hover:border-accent-500 ${
-        featured ? "border-accent-500 shadow-sm ring-1 ring-accent-500/10" : ""
+      className={`group flex flex-col gap-2 p-4 transition-colors hover:border-accent-500 ${
+        featured ? "card-accent" : "card"
       }`}
     >
       <div className="flex items-start gap-3">
@@ -71,8 +71,8 @@ export function ProgramRow({
   return (
     <Link
       href={`/p/${program.slug}`}
-      className={`card flex items-center gap-3 p-3 transition-colors hover:border-accent-500 ${
-        featured ? "border-accent-500" : ""
+      className={`flex items-center gap-3 p-3 transition-colors hover:border-accent-500 ${
+        featured ? "card-accent" : "card"
       }`}
     >
       <Logo program={program} size="sm" />

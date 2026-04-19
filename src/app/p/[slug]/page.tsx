@@ -49,7 +49,7 @@ export default async function ProgramPage({ params }: { params: Params }) {
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_320px]">
         <div>
-          <div className={`card p-6 ${isFeatured ? "border-accent-500 ring-1 ring-accent-500/10" : ""}`}>
+          <div className={`p-6 ${isFeatured ? "card-accent" : "card"}`}>
             <div className="flex items-start gap-4">
               <Logo program={p} size="lg" />
               <div className="min-w-0 flex-1">
@@ -166,7 +166,7 @@ export default async function ProgramPage({ params }: { params: Params }) {
             </div>
           )}
 
-          <div className="card bg-gradient-to-br from-accent-50 to-white p-5">
+          <div className="card-accent p-5">
             <h3 className="text-sm font-bold text-ink-900">Run this program?</h3>
             <p className="mt-1 text-xs text-ink-600">
               Claim your listing and get featured at the top for 30 days — $50.

@@ -19,7 +19,7 @@ export default function PricingPage({ searchParams }: { searchParams: { slug?: s
       <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
         <Plan
           name="Listing"
-          price="$29"
+          price="$20"
           cadence="one-time, listed forever"
           blurb="Everything you need to get discovered."
           features={[
@@ -28,12 +28,12 @@ export default function PricingPage({ searchParams }: { searchParams: { slug?: s
             "Searchable + category / commission-type filters",
             "Reviewed and published within 24 hours",
           ]}
-          cta={{ href: "/submit", label: "Submit listing — $29" }}
+          cta={{ href: "/submit", label: "Submit listing — $20" }}
         />
         <Plan
           name="Listing + Featured"
-          price="$79"
-          cadence="$29 listing + $50 featured (30 days)"
+          price="$70"
+          cadence="$20 listing + $50 featured (30 days)"
           highlighted
           badge="Most popular"
           blurb="Maximum visibility from day one."
@@ -44,7 +44,7 @@ export default function PricingPage({ searchParams }: { searchParams: { slug?: s
             "Featured badge on your listing",
             "Skip the review queue — goes live instantly",
           ]}
-          cta={{ href: `/submit${slug ? `?slug=${slug}` : ""}`, label: "Submit + feature — $79" }}
+          cta={{ href: `/submit${slug ? `?slug=${slug}` : ""}`, label: "Submit + feature — $70" }}
         />
       </div>
 
@@ -61,7 +61,7 @@ export default function PricingPage({ searchParams }: { searchParams: { slug?: s
       <div className="mt-12 rounded-xl border border-ink-200 bg-white p-6">
         <h2 className="text-lg font-bold text-ink-900">FAQ</h2>
         <div className="mt-4 grid grid-cols-1 gap-5 md:grid-cols-2">
-          <Faq q="Is the $29 one-time?">
+          <Faq q="Is the $20 one-time?">
             Yes. Pay once, stay in the directory. No subscription, no annual renewal.
           </Faq>
           <Faq q="How fast does a featured listing go live?">
@@ -110,7 +110,7 @@ function Plan({
   badge?: string;
 }) {
   return (
-    <div className={`card p-6 ${highlighted ? "border-accent-500 ring-1 ring-accent-500/20 shadow-sm" : ""}`}>
+    <div className={`p-6 ${highlighted ? "card-accent" : "card"}`}>
       {badge && <span className="pill-accent mb-2">{badge}</span>}
       <h3 className="text-base font-bold text-ink-900">{name}</h3>
       <p className="mt-0.5 text-xs text-ink-500">{blurb}</p>

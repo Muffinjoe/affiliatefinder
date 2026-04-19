@@ -50,7 +50,7 @@ export function SubmitForm() {
     }
   }
 
-  const total = wantsFeatured ? 79 : 29;
+  const total = wantsFeatured ? 70 : 20;
 
   return (
     <form onSubmit={onSubmit} className="space-y-4">
@@ -133,7 +133,7 @@ export function SubmitForm() {
             <div className="font-semibold text-ink-900">Base listing</div>
             <div className="text-ink-500">One-time, listed forever, approved within 24h.</div>
           </div>
-          <div className="text-lg font-bold text-ink-900">$29</div>
+          <div className="text-lg font-bold text-ink-900">$20</div>
         </div>
       </div>
 
