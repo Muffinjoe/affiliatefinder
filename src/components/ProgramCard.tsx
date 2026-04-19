@@ -1,5 +1,31 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Program, isFeatured, formatCommission, iconLetter } from "@/lib/programs";
+
+function Logo({ program, size }: { program: Program; size: "sm" | "md" | "lg" }) {
+  const px = size === "lg" ? 56 : size === "md" ? 40 : 36;
+  const cls =
+    size === "lg" ? "h-14 w-14 text-xl" : size === "md" ? "h-10 w-10 text-sm" : "h-9 w-9 text-sm";
+  if (program.logo) {
+    return (
+      <span className={`${cls} flex flex-shrink-0 items-center justify-center overflow-hidden rounded-md border border-ink-200 bg-white`}>
+        <Image
+          src={program.logo}
+          alt={`${program.name} logo`}
+          width={px}
+          height={px}
+          className="h-full w-full object-contain p-1"
+          unoptimized
+        />
+      </span>
+    );
+  }
+  return (
+    <span className={`${cls} flex flex-shrink-0 items-center justify-center rounded-md bg-ink-100 font-bold text-ink-700`}>
+      {iconLetter(program.name)}
+    </span>
+  );
+}
 
 export function ProgramCard({ program }: { program: Program }) {
   const featured = isFeatured(program);
@@ -11,9 +37,7 @@ export function ProgramCard({ program }: { program: Program }) {
       }`}
     >
       <div className="flex items-start gap-3">
-        <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-ink-100 text-sm font-bold text-ink-700">
-          {iconLetter(program.name)}
-        </span>
+        <Logo program={program} size="md" />
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
             <h3 className="truncate text-sm font-semibold text-ink-900 group-hover:text-accent-600">
@@ -43,9 +67,7 @@ export function ProgramRow({ program }: { program: Program }) {
         featured ? "border-accent-500" : ""
       }`}
     >
-      <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-md bg-ink-100 text-sm font-bold text-ink-700">
-        {iconLetter(program.name)}
-      </span>
+      <Logo program={program} size="sm" />
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-2">
           <span className="truncate text-sm font-semibold text-ink-900">{program.name}</span>
@@ -62,3 +84,5 @@ export function ProgramRow({ program }: { program: Program }) {
     </Link>
   );
 }
+
+export { Logo };

@@ -43,6 +43,7 @@ export type Program = {
   source?: string;
   created_at?: string;
   updated_at?: string;
+  logo?: string | null;
 };
 
 export const ALL_PROGRAMS: Program[] = raw as Program[];

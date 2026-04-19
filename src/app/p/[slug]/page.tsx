@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ALL_PROGRAMS, getProgramBySlug, isFeatured, formatCommission, iconLetter, filterPrograms } from "@/lib/programs";
-import { ProgramCard } from "@/components/ProgramCard";
+import { ALL_PROGRAMS, getProgramBySlug, isFeatured, formatCommission, filterPrograms } from "@/lib/programs";
+import { ProgramCard, Logo } from "@/components/ProgramCard";
 
 type Params = { slug: string };
 
@@ -45,9 +45,7 @@ export default function ProgramPage({ params }: { params: Params }) {
         <div>
           <div className={`card p-6 ${featured ? "border-accent-500 ring-1 ring-accent-500/10" : ""}`}>
             <div className="flex items-start gap-4">
-              <span className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-lg bg-ink-100 text-xl font-bold text-ink-700">
-                {iconLetter(p.name)}
-              </span>
+              <Logo program={p} size="lg" />
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2">
                   <h1 className="text-2xl font-bold text-ink-900">{p.name}</h1>

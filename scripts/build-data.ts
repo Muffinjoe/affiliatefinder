@@ -11,6 +11,17 @@ import YAML from "yaml";
 
 const YAML_DIR = resolve(process.cwd(), "data/programs");
 const OUT_DIR = resolve(process.cwd(), "src/data");
+const LOGO_DIR = resolve(process.cwd(), "public/logos");
+const LOGO_EXTS = ["png", "webp", "jpg", "jpeg", "svg"] as const;
+
+function findLogo(slug: string): string | null {
+  for (const ext of LOGO_EXTS) {
+    if (existsSync(join(LOGO_DIR, `${slug}.${ext}`))) {
+      return `/logos/${slug}.${ext}`;
+    }
+  }
+  return null;
+}
 
 type Program = {
   slug: string;
@@ -57,6 +68,7 @@ type Program = {
   source?: string;
   created_at?: string;
   updated_at?: string;
+  logo?: string | null;
 };
 
 function main() {
@@ -133,6 +145,7 @@ function main() {
       source: doc.source ?? undefined,
       created_at: doc.created_at ? String(doc.created_at) : undefined,
       updated_at: doc.updated_at ? String(doc.updated_at) : undefined,
+      logo: findLogo(String(doc.slug)),
     };
 
     programs.push(program);
@@ -144,7 +157,8 @@ function main() {
   writeFileSync(join(OUT_DIR, "programs.json"), JSON.stringify(programs));
   writeFileSync(join(OUT_DIR, "categories.json"), JSON.stringify(catCounts));
 
-  console.log(`[build-data] wrote ${programs.length} programs across ${Object.keys(catCounts).length} categories`);
+  const withLogos = programs.filter((p) => p.logo).length;
+  console.log(`[build-data] wrote ${programs.length} programs across ${Object.keys(catCounts).length} categories (${withLogos} with logos)`);
   if (skipped.length) {
     console.warn(`[build-data] skipped ${skipped.length} files:`);
     skipped.slice(0, 10).forEach((s) => console.warn("  -", s));
