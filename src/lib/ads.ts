@@ -143,6 +143,18 @@ const HOUSE_ADS: Ad[] = [
     createdAt: "2026-04-19T00:00:00.000Z",
     activatedAt: "2026-04-19T00:00:00.000Z",
   },
+  {
+    id: "house-chatwoot",
+    headline: "Chatwoot",
+    body: "AI assistant, omnichannel support desk, knowledge base.",
+    url: "https://www.chatwoot.com/?via=5OFFCODE",
+    imageUrl: "/logos/chatwoot.png",
+    contact_email: "house@affiliatedeals.co",
+    status: "active",
+    paid: true,
+    createdAt: "2026-04-19T00:00:00.000Z",
+    activatedAt: "2026-04-19T00:00:00.000Z",
+  },
 ];
 
 export async function listActiveAds(): Promise<Ad[]> {
