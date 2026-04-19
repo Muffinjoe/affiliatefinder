@@ -34,18 +34,24 @@ function AdCard({ ad }: { ad: Ad }) {
       href={ad.url}
       target="_blank"
       rel="noopener noreferrer nofollow sponsored"
-      className="card group block overflow-hidden p-3 transition-colors hover:border-accent-500"
+      className="card group block p-3 transition-colors hover:border-accent-500"
     >
-      {ad.imageUrl && (
-        <div className="-mx-3 -mt-3 mb-2 aspect-[3/2] overflow-hidden bg-ink-100">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={ad.imageUrl} alt="" className="h-full w-full object-cover" />
+      <div className="flex flex-col items-center text-center">
+        {ad.imageUrl ? (
+          <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center overflow-hidden rounded-lg border border-ink-200 bg-white">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={ad.imageUrl} alt="" className="h-full w-full object-contain p-1" />
+          </span>
+        ) : (
+          <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-ink-100 text-sm font-bold text-ink-700">
+            {(ad.headline[0] ?? "?").toUpperCase()}
+          </span>
+        )}
+        <div className="mt-2 text-sm font-semibold text-ink-900 group-hover:text-accent-600">
+          {ad.headline}
         </div>
-      )}
-      <div className="text-sm font-semibold text-ink-900 group-hover:text-accent-600">
-        {ad.headline}
+        <p className="mt-1 line-clamp-3 text-[11px] leading-snug text-ink-500">{ad.body}</p>
       </div>
-      <p className="mt-1 line-clamp-3 text-[11px] leading-snug text-ink-500">{ad.body}</p>
     </a>
   );
 }

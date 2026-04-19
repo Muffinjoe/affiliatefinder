@@ -81,17 +81,17 @@ export function AdvertiseForm() {
           />
         </div>
         <div>
-          <label className="label">Image URL <span className="text-ink-400">(optional, recommended)</span></label>
+          <label className="label">Logo URL <span className="text-ink-400">(recommended)</span></label>
           <input
             name="imageUrl"
             type="url"
             value={imageUrl}
             onChange={(e) => setImageUrl(e.target.value)}
             className="input"
-            placeholder="https://… 600×400 jpg or png"
+            placeholder="https://… square logo (256×256 png or svg)"
           />
           <p className="mt-1 text-[11px] text-ink-400">
-            Host your own image. Best size: 600×400. We'll crop to 3:2.
+            Host your own. Best as a square logo (e.g. 256×256) on a transparent or light background.
           </p>
         </div>
         <div>
@@ -115,23 +115,25 @@ export function AdvertiseForm() {
       {/* Live preview */}
       <div>
         <div className="label">Preview</div>
-        <div className="card overflow-hidden p-3">
-          {imageUrl ? (
-            <div className="-mx-3 -mt-3 mb-2 aspect-[3/2] overflow-hidden bg-ink-100">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={imageUrl} alt="" className="h-full w-full object-cover" onError={(e) => ((e.currentTarget.style.display = "none"))} />
+        <div className="card p-3">
+          <div className="flex flex-col items-center text-center">
+            {imageUrl ? (
+              <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center overflow-hidden rounded-lg border border-ink-200 bg-white">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={imageUrl} alt="" className="h-full w-full object-contain p-1" />
+              </span>
+            ) : (
+              <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-ink-100 text-xs text-ink-400">
+                logo
+              </span>
+            )}
+            <div className="mt-2 text-sm font-semibold text-ink-900">
+              {headline || "Your headline"}
             </div>
-          ) : (
-            <div className="-mx-3 -mt-3 mb-2 flex aspect-[3/2] items-center justify-center bg-ink-100 text-[10px] text-ink-400">
-              image preview
-            </div>
-          )}
-          <div className="text-sm font-semibold text-ink-900">
-            {headline || "Your headline"}
+            <p className="mt-1 line-clamp-3 text-[11px] leading-snug text-ink-500">
+              {body || "Your short body copy goes here."}
+            </p>
           </div>
-          <p className="mt-1 line-clamp-3 text-[11px] leading-snug text-ink-500">
-            {body || "Your short body copy goes here."}
-          </p>
         </div>
         <p className="mt-2 text-[10px] text-ink-400">
           Shown in the sidebar on home + browse pages.
