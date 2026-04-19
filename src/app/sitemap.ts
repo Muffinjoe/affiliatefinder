@@ -9,7 +9,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/browse`, lastModified: now, changeFrequency: "daily", priority: 0.9 },
     { url: `${base}/categories`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: `${base}/submit`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${base}/advertise`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
     { url: `${base}/pricing`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${base}/sitemap`, lastModified: now, changeFrequency: "weekly", priority: 0.4 },
   ];
   const cats = CATEGORIES.map((c) => ({
     url: `${base}/browse?category=${encodeURIComponent(c)}`,

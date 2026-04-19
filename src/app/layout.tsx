@@ -57,6 +57,7 @@ function Footer() {
           <Link href="/submit" className="hover:text-ink-800">Add program</Link>
           <Link href="/advertise" className="hover:text-ink-800">Advertise</Link>
           <Link href="/pricing" className="hover:text-ink-800">Pricing</Link>
+          <Link href="/sitemap" className="hover:text-ink-800">Sitemap</Link>
         </div>
       </div>
     </footer>
