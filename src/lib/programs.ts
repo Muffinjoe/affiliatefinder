@@ -1,3 +1,4 @@
+import { cache } from "react";
 import raw from "@/data/programs.json";
 import catMap from "@/data/categories.json";
 import { listAllSubmissions, getFeaturedSlugs, submissionToProgram } from "@/lib/submissions";
@@ -57,14 +58,15 @@ export type CommissionType = (typeof COMMISSION_TYPES)[number];
 // Hardcoded fallback featured set — runtime overrides come from Vercel Blob.
 const STATIC_FEATURED = new Set<string>(["ahrefs", "1password", "algolia", "activecampaign"]);
 
-/**
- * Server-only: returns the live merged dataset (static YAML + approved
- * user submissions) and the live featured set.
- */
-export async function getDirectory(): Promise<{
-  programs: Program[];
-  featured: Set<string>;
-}> {
+type DirectoryResult = { programs: Program[]; featured: Set<string> };
+
+// Process-wide memo with a 60s TTL. Ensures a single build (or a burst of
+// concurrent function invocations) only hits Vercel Blob once instead of
+// 750+ times during static generation of /p/[slug] pages.
+let directoryMemo: { at: number; promise: Promise<DirectoryResult> } | null = null;
+const DIRECTORY_TTL_MS = 60_000;
+
+async function buildDirectory(): Promise<DirectoryResult> {
   let extras: Program[] = [];
   let blobFeatured = new Set<string>();
   try {
@@ -84,6 +86,20 @@ export async function getDirectory(): Promise<{
   const featured = new Set<string>([...STATIC_FEATURED, ...blobFeatured]);
   return { programs: merged, featured };
 }
+
+export const getDirectory = cache(async (): Promise<DirectoryResult> => {
+  const now = Date.now();
+  if (directoryMemo && now - directoryMemo.at < DIRECTORY_TTL_MS) {
+    return directoryMemo.promise;
+  }
+  const promise = buildDirectory();
+  directoryMemo = { at: now, promise };
+  // If the underlying call rejects, drop the memo so we retry on next call.
+  promise.catch(() => {
+    directoryMemo = null;
+  });
+  return promise;
+});
 
 export function isFeaturedIn(featured: Set<string>, p: Pick<Program, "slug">): boolean {
   return featured.has(p.slug);
