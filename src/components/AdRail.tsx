@@ -1,13 +1,19 @@
 import Link from "next/link";
-import Image from "next/image";
 import { listActiveAds, type Ad } from "@/lib/ads";
+import { seededShuffle, rotationSeed } from "@/lib/shuffle";
 
 const SLOTS_PER_RAIL = 4;
+const TOTAL_SLOTS = SLOTS_PER_RAIL * 2;
 
 export async function AdRail({ side }: { side: "left" | "right" }) {
-  const ads = await listActiveAds();
+  const all = await listActiveAds();
+  // Rotate only once there's more inventory than fits — until then we keep
+  // stable order so the same ads aren't pointlessly reshuffling.
+  const ads = all.length > TOTAL_SLOTS ? seededShuffle(all, rotationSeed()) : all;
   // Stable split: left rail gets even-indexed ads, right rail gets odd-indexed.
-  const slice = ads.filter((_, i) => (side === "left" ? i % 2 === 0 : i % 2 === 1)).slice(0, SLOTS_PER_RAIL);
+  const slice = ads
+    .filter((_, i) => (side === "left" ? i % 2 === 0 : i % 2 === 1))
+    .slice(0, SLOTS_PER_RAIL);
   const fillers = Array.from({ length: Math.max(0, SLOTS_PER_RAIL - slice.length) });
   // The last slot on the right rail is always the "Advertise here" CTA.
   const showCTA = side === "right";

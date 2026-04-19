@@ -2,12 +2,17 @@ import Link from "next/link";
 import { getDirectory, CATEGORY_COUNTS, CATEGORIES, filterPrograms } from "@/lib/programs";
 import { ProgramCard } from "@/components/ProgramCard";
 import { AdRail } from "@/components/AdRail";
+import { seededShuffle, rotationSeed } from "@/lib/shuffle";
 
+const FEATURED_HOMEPAGE_SLOTS = 4;
 export const revalidate = 60;
 
 export default async function HomePage() {
   const { programs, featured } = await getDirectory();
-  const featuredList = programs.filter((p) => featured.has(p.slug)).slice(0, 6);
+  // Rotate which featured listings appear in the 4 homepage slots — fresh
+  // order on every 60s revalidation.
+  const featuredPool = programs.filter((p) => featured.has(p.slug));
+  const featuredList = seededShuffle(featuredPool, rotationSeed()).slice(0, FEATURED_HOMEPAGE_SLOTS);
   const fresh = filterPrograms(programs, featured, { sort: "newest" }).slice(0, 8);
   const topCats = CATEGORIES
     .map((c) => ({ name: c, count: CATEGORY_COUNTS[c] }))
