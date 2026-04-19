@@ -119,6 +119,18 @@ const HOUSE_ADS: Ad[] = [
     createdAt: "2026-04-19T00:00:00.000Z",
     activatedAt: "2026-04-19T00:00:00.000Z",
   },
+  {
+    id: "house-trendsfox",
+    headline: "Trendsfox",
+    body: "See what's gaining traction across Reddit, YouTube, SaaS launches, tech, and stocks — all in one dashboard.",
+    url: "https://trendsfox.com/",
+    imageUrl: "/logos/trendsfox.png",
+    contact_email: "house@affiliatedeals.co",
+    status: "active",
+    paid: true,
+    createdAt: "2026-04-19T00:00:00.000Z",
+    activatedAt: "2026-04-19T00:00:00.000Z",
+  },
 ];
 
 export async function listActiveAds(): Promise<Ad[]> {
