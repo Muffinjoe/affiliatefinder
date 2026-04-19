@@ -50,11 +50,10 @@ export default function PricingPage({ searchParams }: { searchParams: { slug?: s
 
       <div className="mt-10">
         <h2 className="text-center text-lg font-bold text-ink-900">Featured boost — pick a duration</h2>
-        <p className="text-center text-xs text-ink-500">Discounts for 2- and 3-month plans.</p>
-        <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
+        <p className="text-center text-xs text-ink-500">Save $31 with the 3-month plan.</p>
+        <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
           <TierCard months={1} price={50} per="$50/mo" save={null} />
-          <TierCard months={2} price={89} per="$44.50/mo" save="Save $11" highlight />
-          <TierCard months={3} price={119} per="$39.67/mo" save="Save $31" />
+          <TierCard months={3} price={119} per="$39.67/mo" save="Save $31" highlight />
         </div>
       </div>
 

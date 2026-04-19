@@ -6,14 +6,13 @@ import { CATEGORIES, COMMISSION_TYPES } from "@/lib/programs";
 const TIERS = [
   { months: 0, price: 0, label: "No featured", per: "", save: "" },
   { months: 1, price: 50, label: "1 month", per: "$50/mo", save: "" },
-  { months: 2, price: 89, label: "2 months", per: "$44.50/mo", save: "Save $11" },
   { months: 3, price: 119, label: "3 months", per: "$39.67/mo", save: "Save $31" },
 ] as const;
 
 export function SubmitForm() {
   const [state, setState] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
-  const [featuredMonths, setFeaturedMonths] = useState<0 | 1 | 2 | 3>(0);
+  const [featuredMonths, setFeaturedMonths] = useState<0 | 1 | 3>(0);
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -152,14 +151,14 @@ export function SubmitForm() {
             <p className="mt-1 text-xs text-ink-600">Homepage feature + category-top placement. Auto-approved, goes live instantly.</p>
           </div>
         </div>
-        <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
+        <div className="mt-4 grid grid-cols-3 gap-2">
           {TIERS.map((t) => {
             const active = t.months === featuredMonths;
             return (
               <button
                 key={t.months}
                 type="button"
-                onClick={() => setFeaturedMonths(t.months as 0 | 1 | 2 | 3)}
+                onClick={() => setFeaturedMonths(t.months as 0 | 1 | 3)}
                 className={`rounded-lg border p-3 text-left transition-colors ${
                   active ? "border-accent bg-white shadow-sm ring-1 ring-accent/20" : "border-ink-200 bg-white hover:border-ink-400"
                 }`}

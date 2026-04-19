@@ -25,7 +25,7 @@ const Body = z.object({
   description: z.string().min(20).max(3000),
   tags: z.array(z.string()).max(10).optional(),
   contact_email: z.string().email(),
-  featuredMonths: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3)]).optional(),
+  featuredMonths: z.union([z.literal(0), z.literal(1), z.literal(3)]).optional(),
 });
 
 export async function POST(req: Request) {
@@ -40,7 +40,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Invalid input", details: parsed.error.flatten() }, { status: 400 });
   }
   const d = parsed.data;
-  const months = (d.featuredMonths ?? 0) as 0 | 1 | 2 | 3;
+  const months = (d.featuredMonths ?? 0) as 0 | 1 | 3;
 
   if (!process.env.STRIPE_SECRET_KEY) {
     return NextResponse.json({ error: "Checkout unavailable" }, { status: 500 });
@@ -82,7 +82,7 @@ export async function POST(req: Request) {
       },
     },
   ];
-  if (months > 0 && (months === 1 || months === 2 || months === 3)) {
+  if (months === 1 || months === 3) {
     const tier = FEATURED_TIERS[months];
     lineItems.push({
       quantity: 1,
@@ -133,7 +133,7 @@ export async function POST(req: Request) {
         <li>Signup: <a href="${d.signup_url}">${d.signup_url}</a></li>
         <li>Commission: ${escapeHtml(d.commission)}</li>
         <li>Contact: ${escapeHtml(d.contact_email)}</li>
-        <li>Featured: ${months > 0 && (months === 1 || months === 2 || months === 3) ? `${months} month${months > 1 ? "s" : ""} ($${FEATURED_TIERS[months].cents / 100})` : "no"}</li>
+        <li>Featured: ${months === 1 || months === 3 ? `${months} month${months > 1 ? "s" : ""} ($${FEATURED_TIERS[months].cents / 100})` : "no"}</li>
       </ul>
       <p><a href="${adminUrl}">→ Review in admin</a></p>
     `
