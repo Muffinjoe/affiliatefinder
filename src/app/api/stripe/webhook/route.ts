@@ -35,18 +35,23 @@ export async function POST(req: Request) {
       const months = Math.max(0, Math.min(3, Number(meta.featured_months ?? "0")));
       try {
         const sub = await getSubmission(submissionId);
-        if (sub && months > 0) {
-          sub.paidFeatured = true;
+        if (sub) {
+          // Auto-approve every paid listing. Featured purchases additionally
+          // pin to the top for the chosen duration. Admin can still unpublish
+          // anything dodgy from /admin.
           await setSubmissionStatus(sub.id, "approved");
-          await setFeaturedFor(sub.slug, months);
+          if (months > 0) {
+            sub.paidFeatured = true;
+            await setFeaturedFor(sub.slug, months);
+          }
         }
         await notifyAdmin(
           `💰 Payment received — ${meta.program_name ?? submissionId}`,
           `
-            <h2>Listing paid ($${amount})</h2>
+            <h2>Listing paid ($${amount}) — auto-approved</h2>
             <ul>
               <li>Submission: ${submissionId}</li>
-              <li>Featured: ${months > 0 ? `${months} month${months > 1 ? "s" : ""} — auto-approved + pinned` : "no — needs admin approval"}</li>
+              <li>Featured: ${months > 0 ? `${months} month${months > 1 ? "s" : ""} — pinned` : "no"}</li>
               <li>Stripe session: ${session.id}</li>
             </ul>
           `
