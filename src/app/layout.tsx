@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
 import Link from "next/link";
+import { Header } from "@/components/Header";
 
 const UMAMI_WEBSITE_ID = "54733c70-f420-4bd0-96d4-3fd39fc3c473";
 const GOOGLE_ADS_ID = "AW-17945112356";
@@ -40,31 +41,6 @@ gtag('config', '${GOOGLE_ADS_ID}');`}
         <Footer />
       </body>
     </html>
-  );
-}
-
-function Header() {
-  return (
-    <header className="sticky top-0 z-20 border-b border-ink-200 bg-white/90 backdrop-blur">
-      <div className="container-page flex h-14 items-center justify-between">
-        <Link href="/" className="flex items-center gap-2 font-bold text-ink-900">
-          <span className="inline-flex h-7 w-7 items-center justify-center rounded-md bg-gradient-to-br from-accent-500 to-accent text-white shadow-sm">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M12 4 L18 4 L20 6 L20 12 L12.4 19.6 A1.5 1.5 0 0 1 10.3 19.6 L4.4 13.7 A1.5 1.5 0 0 1 4.4 11.6 Z" />
-              <circle cx="16.5" cy="7.5" r="1.2" fill="currentColor" stroke="none" />
-            </svg>
-          </span>
-          <span>AffiliateDeals<span className="text-accent">.co</span></span>
-        </Link>
-        <nav className="flex items-center gap-1 text-sm">
-          <Link href="/browse" className="btn-ghost">Browse</Link>
-          <Link href="/categories" className="btn-ghost hidden sm:inline-flex">Categories</Link>
-          <Link href="/pricing" className="btn-ghost hidden sm:inline-flex">Pricing</Link>
-          <Link href="/advertise" className="btn-ghost hidden md:inline-flex">Advertise</Link>
-          <Link href="/submit" className="btn-accent ml-1">Add program</Link>
-        </nav>
-      </div>
-    </header>
   );
 }
 

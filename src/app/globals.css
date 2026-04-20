@@ -33,10 +33,10 @@
   .label { @apply mb-1 block text-xs font-medium text-ink-700; }
 
   .pill {
-    @apply inline-flex items-center rounded-full bg-ink-100 px-2 py-0.5 text-[11px] font-medium text-ink-700;
+    @apply inline-flex items-center whitespace-nowrap rounded-full bg-ink-100 px-2 py-0.5 text-[11px] font-medium text-ink-700;
   }
   .pill-accent {
-    @apply inline-flex items-center rounded-full bg-gradient-to-br from-accent-50 to-emerald-100 px-2 py-0.5 text-[11px] font-semibold text-accent-600 ring-1 ring-accent-500/20;
+    @apply inline-flex items-center whitespace-nowrap rounded-full bg-gradient-to-br from-accent-50 to-emerald-100 px-2 py-0.5 text-[11px] font-semibold text-accent-600 ring-1 ring-accent-500/20;
   }
 
   .card-accent {
