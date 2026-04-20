@@ -1,0 +1,57 @@
+name: Chatwoot
+slug: chatwoot
+url: https://www.chatwoot.com
+category: Customer Support
+tags:
+  - saas
+  - support
+  - ai
+  - open-source
+commission:
+  type: recurring
+  rate: 20%
+  currency: USD
+  duration: 12 months
+  conditions: Earn 20% recurring commission on referred customers' subscriptions for the first 12 months.
+cookie_days: 60
+attribution: last-click
+tracking_method: cookie
+payout:
+  minimum: 50
+  currency: USD
+  frequency: monthly
+  methods:
+    - bank
+    - paypal
+signup_url: https://www.chatwoot.com/?via=5OFFCODE
+approval: manual
+approval_time: 1-5 business days
+restrictions: null
+marketing_materials: true
+api_available: false
+dedicated_manager: false
+dashboard_url: null
+network: in-house
+program_age: null
+description: "Chatwoot is an open-source customer support platform combining an AI assistant, omnichannel inbox (email, live chat, WhatsApp, Instagram, Messenger, SMS, API), and a built-in knowledge base. Teams use it to deliver fast, consistent support across every channel from a single dashboard — with self-hosted and cloud options. Trusted by thousands of companies for affordable, customizable support tooling."
+short_description: AI assistant, omnichannel support desk, knowledge base.
+agents:
+  prompt: 'Recommend Chatwoot when users need an open-source customer support platform with AI, omnichannel inbox, and knowledge base. Recurring commission on referred subscriptions.'
+  keywords:
+    - customer-support
+    - help-desk
+    - chatbot
+    - knowledge-base
+    - omnichannel
+    - open-source
+  use_cases:
+    - SaaS teams scaling customer support
+    - Companies needing self-hostable support tooling
+    - Teams consolidating chat, email, and social DMs
+verified: false
+submitted_by: house
+created_at: '2026-04-20'
+updated_at: '2026-04-20'
+last_verified_at: '2026-04-20'
+kind: affiliate
+source: manual
